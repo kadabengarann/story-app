@@ -36,5 +36,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+    <include
+        android:id="@+id/inc_progress"
+        layout="@layout/progress_overlay_block"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

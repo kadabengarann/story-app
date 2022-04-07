@@ -1,10 +1,7 @@
 package com.kadabengaran.storyapp.view
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kadabengaran.storyapp.service.model.User
 import com.kadabengaran.storyapp.service.model.UserPreference
 import kotlinx.coroutines.launch

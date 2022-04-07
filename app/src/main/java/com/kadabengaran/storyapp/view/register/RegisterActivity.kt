@@ -80,9 +80,11 @@ class RegisterActivity : AppCompatActivity() {
                     binding.passwordEditTextLayout.error = "Masukkan password"
                 }
                 else -> {
-                    user.name = name
-                    user.email = email
-                    user.password = password
+                    user = RegisterBody(
+                        name,
+                        email,
+                        password
+                    )
                     register(user)
                 }
             }
@@ -129,7 +131,7 @@ class RegisterActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         showLoading(false)
-                        login(LoginBody(user.email, user.password))
+                        login(LoginBody(register.email, register.password))
                     }
                     is Result.Error -> {
                         showLoading(false)

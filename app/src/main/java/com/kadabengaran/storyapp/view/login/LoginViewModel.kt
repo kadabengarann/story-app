@@ -9,6 +9,5 @@ import com.kadabengaran.storyapp.service.model.ResponseLogin
 class LoginViewModel(private  val storyRepository: StoryRepository) : ViewModel() {
     fun login(user: LoginBody): LiveData<Result<ResponseLogin>?>  {
         return storyRepository.login(user).asLiveData()
-
     }
 }

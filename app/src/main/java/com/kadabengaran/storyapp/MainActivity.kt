@@ -1,23 +1,16 @@
 package com.kadabengaran.storyapp
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.kadabengaran.storyapp.databinding.ActivityMainBinding
-import com.kadabengaran.storyapp.service.model.UserPreference
 import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.login.LoginActivity
 
@@ -27,11 +20,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        setupView()
+    binding = ActivityMainBinding.inflate(layoutInflater)
+    setContentView(binding.root)
         setupViewModel()
+        setupView()
         setupAction()
     }
     private fun setupView() {
@@ -45,20 +37,22 @@ class MainActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+
     }
-
+    private fun showContent(auth: Boolean){
+            binding.incProgress.progressOverlay.visibility = if (!auth) View.VISIBLE else View.GONE
+        }
     private fun setupViewModel() {
-        preferenceViewModel = ViewModelProvider(this).get(PreferenceViewModel::class.java)
-
+        preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
         preferenceViewModel.getUser().observe(this) { user ->
-            if (user.isLogin) {
-                binding.nameTextView.text = getString(R.string.greeting, user.name)
-                Log.d(TAG, "setupViewModel: ${user.token}")
-
-            } else {
+            if (!user.isLogin){
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
+            }else{
+                binding.nameTextView.text = getString(R.string.greeting, user.name)
+                Log.d(TAG, "setupViewModel: ${user.token}")
             }
+            showContent(user.isLogin)
         }
     }
 
