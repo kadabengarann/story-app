@@ -211,4 +211,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
+    <include
+        android:id="@+id/inc_progress"
+        layout="@layout/progress_overlay"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

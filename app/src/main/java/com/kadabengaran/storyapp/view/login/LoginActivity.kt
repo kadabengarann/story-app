@@ -10,27 +10,32 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.kadabengaran.storyapp.MainActivity
-import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.ActivityLoginBinding
+import com.kadabengaran.storyapp.service.Result
+import com.kadabengaran.storyapp.service.model.LoginBody
 import com.kadabengaran.storyapp.service.model.User
-import com.kadabengaran.storyapp.service.model.UserPreference
+import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.register.RegisterActivity
 
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
 class LoginActivity : AppCompatActivity() {
-    private lateinit var loginViewModel: LoginViewModel
-    private lateinit var binding: ActivityLoginBinding
-    private lateinit var user: User
+    private lateinit var preferenceViewModel: PreferenceViewModel
 
+    private lateinit var binding: ActivityLoginBinding
+
+    private val factory by lazy {
+        ViewModelFactory.getInstance(this)
+    }
+    private val loginViewModel: LoginViewModel by viewModels {
+        factory
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -56,14 +61,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupViewModel() {
-        loginViewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(UserPreference.getInstance(dataStore))
-        )[LoginViewModel::class.java]
-
-        loginViewModel.getUser().observe(this) { user ->
-            this.user = user
-        }
+        preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
     }
 
     private fun setupAction() {
@@ -79,19 +77,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    loginViewModel.login()
-                    AlertDialog.Builder(this).apply {
-                        setTitle("Yeah!")
-                        setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-                        setPositiveButton("Lanjut") { _, _ ->
-                            val intent = Intent(context, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
-                            finish()
-                        }
-                        create()
-                        show()
-                    }
+                    login(LoginBody( email, password))
                 }
             }
         }
@@ -101,6 +87,37 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun login(login: LoginBody){
+        loginViewModel.login(login).observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        saveSession(User(
+                            result.data.name,
+                            result.data.token,
+                            true,
+                        ))
+                        startActivity(Intent(this, MainActivity::class.java))
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        showError(result.error)
+
+                    }
+                }
+            }
+        }
+    }
+    private fun saveSession(user: User){
+        preferenceViewModel.saveSession(user)
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.incProgress.progressOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
     private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val titleMessage = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(500)
@@ -122,6 +139,16 @@ class LoginActivity : AppCompatActivity() {
             start()
         }
     }
-
+    private fun showError(msg: String) {
+        AlertDialog.Builder(this).apply {
+            setTitle("Failed!")
+            setMessage(msg)
+            setNegativeButton("Ok") { dialog, _ ->
+                dialog.dismiss()
+            }
+            create()
+            show()
+        }
+    }
 
 }
