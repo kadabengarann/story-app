@@ -14,7 +14,7 @@ import com.kadabengaran.storyapp.databinding.ActivityMainBinding
 import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.login.LoginActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivityOld : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var preferenceViewModel: PreferenceViewModel
 
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun showContent(auth: Boolean){
-            binding.incProgress.progressOverlay.visibility = if (!auth) View.VISIBLE else View.GONE
+//            binding.incProgress.progressOverlay.visibility = if (!auth) View.VISIBLE else View.GONE
         }
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }else{
-                binding.nameTextView.text = getString(R.string.greeting, user.name)
+//                binding.nameTextView.text = getString(R.string.greeting, user.name)
                 Log.d(TAG, "setupViewModel: ${user.token}")
             }
             showContent(user.isLogin)
@@ -57,9 +57,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.logoutButton.setOnClickListener {
+        /*binding.logoutButton.setOnClickListener {
             preferenceViewModel.logout()
-        }
+        }*/
     }
 
 }

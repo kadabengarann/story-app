@@ -12,7 +12,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.kadabengaran.storyapp.MainActivity
+import com.kadabengaran.storyapp.MainActivityOld
 import com.kadabengaran.storyapp.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.ActivityRegisterBinding
 import com.kadabengaran.storyapp.service.Result
@@ -111,7 +111,7 @@ class RegisterActivity : AppCompatActivity() {
                                 true,
                             )
                         )
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, MainActivityOld::class.java))
                     }
                     is Result.Error -> {
                         showLoading(false)

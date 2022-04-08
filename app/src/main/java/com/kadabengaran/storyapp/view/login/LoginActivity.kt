@@ -2,7 +2,6 @@ package com.kadabengaran.storyapp.view.login
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +11,8 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import com.kadabengaran.storyapp.MainActivity
+import com.kadabengaran.storyapp.MainActivityOld
 import com.kadabengaran.storyapp.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.ActivityLoginBinding
 import com.kadabengaran.storyapp.service.Result
@@ -101,7 +97,7 @@ class LoginActivity : AppCompatActivity() {
                             result.data.token,
                             true,
                         ))
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, MainActivityOld::class.java))
                     }
                     is Result.Error -> {
                         showLoading(false)
