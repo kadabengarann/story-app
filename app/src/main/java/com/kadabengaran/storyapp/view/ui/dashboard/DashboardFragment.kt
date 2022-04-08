@@ -3,11 +3,15 @@ package com.kadabengaran.storyapp.view.ui.dashboard
 import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.MaterialFadeThrough
 import com.kadabengaran.storyapp.databinding.FragmentDashboardBinding
@@ -24,7 +28,7 @@ class DashboardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setHasOptionsMenu(true)
         enterTransition = MaterialFadeThrough()
     }
     override fun onCreateView(
@@ -32,9 +36,8 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
+        val dashboardViewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
+        (activity as AppCompatActivity?)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 //        val mainActivity = activity as MainActivity
@@ -46,7 +49,13 @@ class DashboardFragment : Fragment() {
         }
         return root
     }
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.home ->
+                activity?.onBackPressed()
+        }
+        return true
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

@@ -3,16 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_login.xml" value="0.2223731884057971" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_main_old.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_register.xml" value="0.2223731884057971" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.22327898550724637" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_home.xml" value="0.22327898550724637" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/progress_overlay.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/progress_overlay_block.xml" value="0.11302083333333333" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.11302083333333333" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

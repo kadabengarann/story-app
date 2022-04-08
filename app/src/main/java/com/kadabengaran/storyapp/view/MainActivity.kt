@@ -21,11 +21,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        Log.d(TAG, "onCreate: uyee")
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-        Log.d(TAG, "onCreate: uyee")
 
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
