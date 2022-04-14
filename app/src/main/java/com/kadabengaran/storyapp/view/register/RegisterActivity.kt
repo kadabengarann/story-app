@@ -19,6 +19,7 @@ import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.LoginBody
 import com.kadabengaran.storyapp.service.model.RegisterBody
 import com.kadabengaran.storyapp.service.model.User
+import com.kadabengaran.storyapp.view.MainActivity
 import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.login.LoginActivity
 
@@ -111,7 +112,7 @@ class RegisterActivity : AppCompatActivity() {
                                 true,
                             )
                         )
-                        startActivity(Intent(this, MainActivityOld::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
                     }
                     is Result.Error -> {
                         showLoading(false)

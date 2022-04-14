@@ -1,4 +1,4 @@
-package com.kadabengaran.storyapp.view.ui.notifications
+package com.kadabengaran.storyapp.view.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

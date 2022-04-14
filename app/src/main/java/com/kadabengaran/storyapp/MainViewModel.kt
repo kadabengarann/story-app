@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.kadabengaran.storyapp.service.model.User
-import com.kadabengaran.storyapp.service.model.UserPreference
+import com.kadabengaran.storyapp.service.preferrences.UserPreference
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val pref: UserPreference) : ViewModel() {

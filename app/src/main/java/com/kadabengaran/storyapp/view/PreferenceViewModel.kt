@@ -3,12 +3,13 @@ package com.kadabengaran.storyapp.view
 import android.app.Application
 import androidx.lifecycle.*
 import com.kadabengaran.storyapp.service.model.User
-import com.kadabengaran.storyapp.service.model.UserPreference
+import com.kadabengaran.storyapp.service.preferrences.UserPreference
 import kotlinx.coroutines.launch
 
 class PreferenceViewModel (application: Application) : AndroidViewModel(application) {
 
     private val pref = UserPreference(application)
+
     fun getUser(): LiveData<User> {
         return pref.getUser().asLiveData()
     }
@@ -21,6 +22,16 @@ class PreferenceViewModel (application: Application) : AndroidViewModel(applicat
     fun saveSession(user: User) {
         viewModelScope.launch {
             pref.saveSession(user)
+        }
+    }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return pref.getThemeSetting().asLiveData()
+    }
+
+    fun saveThemeSetting(isDarkModeActive: Boolean) {
+        viewModelScope.launch {
+            pref.saveThemeSetting(isDarkModeActive)
         }
     }
 }

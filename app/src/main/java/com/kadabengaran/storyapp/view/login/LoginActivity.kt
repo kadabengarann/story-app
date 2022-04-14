@@ -18,6 +18,7 @@ import com.kadabengaran.storyapp.databinding.ActivityLoginBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.LoginBody
 import com.kadabengaran.storyapp.service.model.User
+import com.kadabengaran.storyapp.view.MainActivity
 import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.register.RegisterActivity
 
@@ -45,14 +46,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupView() {
         @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.hide(WindowInsets.Type.statusBars())
         } else {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
-        }
+        }*/
         supportActionBar?.hide()
     }
 
@@ -97,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
                             result.data.token,
                             true,
                         ))
-                        startActivity(Intent(this, MainActivityOld::class.java))
+                        startActivity(Intent(this, MainActivity::class.java))
                     }
                     is Result.Error -> {
                         showLoading(false)

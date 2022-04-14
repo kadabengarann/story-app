@@ -1,4 +1,4 @@
-package com.kadabengaran.storyapp.view.ui.notifications
+package com.kadabengaran.storyapp.view.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.kadabengaran.storyapp.service.model
+package com.kadabengaran.storyapp.service.preferrences
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.kadabengaran.storyapp.service.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -49,13 +50,24 @@ class UserPreference (private val context: Context) {
 
         }
     }
+    fun getThemeSetting(): Flow<Boolean> {
+        return context.dataStore.data.map { preferences ->
+            preferences[THEME_KEY] ?: false
+        }
+    }
 
+    suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[THEME_KEY] = isDarkModeActive
+        }
+    }
     companion object {
 
         private val NAME_KEY = stringPreferencesKey("name")
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val SESSION_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
+        private val THEME_KEY = booleanPreferencesKey("theme_setting")
 
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 

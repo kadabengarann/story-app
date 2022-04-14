@@ -12,6 +12,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="actionColor">@color/blue_700</item>
+        <item name="onActionColor">@color/white</item>
+        <item name="textColorPrimary">#24292E</item>
+        <item name="textColorSecondary">#5F676F</item>
 
         <item name="tabColor">@color/black</item>
         <item name="tabDisabledColor">#2F2F2F2F</item>
@@ -26,4 +30,20 @@
         <item name="colorPrimary">@color/teal_200</item>
         <item name="colorOnPrimary">@color/black</item>
     </style>
+
+    <style name="Theme.StoryApp.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/onActionColor</item>
+        <item name="android:backgroundTint">?attr/actionColor</item>
+    </style>
+
+    <style name="Theme.StoryApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.StoryApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.StoryApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
