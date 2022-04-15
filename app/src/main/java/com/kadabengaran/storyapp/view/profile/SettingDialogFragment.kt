@@ -22,10 +22,6 @@ class SettingDialogFragment : BottomSheetDialogFragment() {
 
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,17 +41,13 @@ class SettingDialogFragment : BottomSheetDialogFragment() {
         ) { isDarkModeActive: Boolean ->
             switch_id.isChecked = isDarkModeActive
         }
-        /*
-       preferenceViewModel.getUser().observe(viewLifecycleOwner) { user ->
-           binding.tvName.text = user.name
-       }*/
     }
     private fun setupAction(){
-        binding.btnLogout.setOnClickListener {
+        binding.touchLogout.setOnClickListener {
             preferenceViewModel.logout()
             dismiss()
         }
-        binding.langSetting.setOnClickListener {
+        binding.touchLang.setOnClickListener {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
         binding.darkModeSwitch.setOnCheckedChangeListener{ _: CompoundButton?, isChecked: Boolean ->

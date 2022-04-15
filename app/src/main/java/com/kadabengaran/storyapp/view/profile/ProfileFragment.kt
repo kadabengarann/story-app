@@ -16,11 +16,6 @@ class ProfileFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +24,6 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setupViewModel()
-        setupAction()
         return root
     }
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -52,12 +46,4 @@ class ProfileFragment : Fragment() {
             binding.tvName.text = user.name
         }
     }
-    private fun setupAction(){
-        binding.btnLogout.setOnClickListener {
-            preferenceViewModel.logout()
-//            view?.findNavController()?.navigate(R.id.action_navigation_profile_to_loginActivity)
-
-        }
-    }
-
 }

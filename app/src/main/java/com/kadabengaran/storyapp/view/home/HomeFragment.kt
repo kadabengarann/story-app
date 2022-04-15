@@ -6,14 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kadabengaran.storyapp.ViewModelFactory
+import com.google.android.material.transition.MaterialFadeThrough
+import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.FragmentHomeBinding
 import com.kadabengaran.storyapp.databinding.ItemStoriesBinding
 import com.kadabengaran.storyapp.service.Result
@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var preferenceViewModel: PreferenceViewModel
 
     private val factory by lazy {
-        ViewModelFactory.getInstance(requireActivity())
+        ViewModelFactory.getInstance()
     }
     private val homeViewModel: HomeViewModel by viewModels {
         factory
@@ -39,6 +39,10 @@ class HomeFragment : Fragment() {
         ListStoryAdapter(
             mutableListOf()
         )
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = MaterialFadeThrough()
     }
 
     override fun onCreateView(

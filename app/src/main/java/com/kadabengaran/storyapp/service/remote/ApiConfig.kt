@@ -1,7 +1,6 @@
 package com.kadabengaran.storyapp.service.remote
 
 import com.kadabengaran.storyapp.BuildConfig
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,19 +14,12 @@ class ApiConfig {
             } else {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
             }
-            /*val headerInterceptor = Interceptor { chain ->
-                var request = chain.request()
-                request = request.newBuilder()
-                    .addHeader("Authorization", "token ${BuildConfig.API_KEY}")
-                    .build()
-                chain.proceed(request)
-            }*/
+
             val client = OkHttpClient.Builder()
-//                .addInterceptor(headerInterceptor)
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://story-api.dicoding.dev/")
+                .baseUrl(BuildConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

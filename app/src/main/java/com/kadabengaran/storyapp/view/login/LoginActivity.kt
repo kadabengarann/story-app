@@ -3,17 +3,15 @@ package com.kadabengaran.storyapp.view.login
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
-import com.kadabengaran.storyapp.MainActivityOld
-import com.kadabengaran.storyapp.ViewModelFactory
+import com.kadabengaran.storyapp.R
+import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.ActivityLoginBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.LoginBody
@@ -28,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
 
     private val factory by lazy {
-        ViewModelFactory.getInstance(this)
+        ViewModelFactory.getInstance()
     }
     private val loginViewModel: LoginViewModel by viewModels {
         factory
@@ -45,16 +43,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-        @Suppress("DEPRECATION")
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }*/
-        supportActionBar?.hide()
+       supportActionBar?.hide()
+        setLoginEnable()
     }
 
     private fun setupViewModel() {
@@ -62,26 +52,24 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            when {
-                email.isEmpty() -> {
-                    binding.emailEditTextLayout.error = "Masukkan email"
-                }
-                password.isEmpty() -> {
-                    binding.passwordEditTextLayout.error = "Masukkan password"
-                }
+        val password = binding.passwordInput
+        val email = binding.emailInput
+        password.doAfterTextChanged { setLoginEnable() }
+        email.doAfterTextChanged { setLoginEnable() }
 
-                else -> {
-                    login(LoginBody( email, password))
-                }
-            }
+        binding.btnLogin.setOnClickListener {
+            val emailText = email.text.toString()
+            val passwordText = password.text.toString()
+                    login(LoginBody( emailText, passwordText))
         }
-        binding.registerButton.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
             finish()
         }
+    }
+
+    private fun setLoginEnable() {
+        binding.btnLogin.isEnabled = (binding.passwordInput.check() && binding.emailInput.check())
     }
 
     private fun login(login: LoginBody){
@@ -117,30 +105,31 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
-        val titleMessage = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(500)
-        val emailText = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(500)
-        val emailInput = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val passwordText = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(500)
-        val passwordInput = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
-        val register = ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(500)
+        val emailIcon = ObjectAnimator.ofFloat(binding.emailIcon, View.ALPHA, 1f).setDuration(500)
+        val emailInput = ObjectAnimator.ofFloat(binding.emailInput, View.ALPHA, 1f).setDuration(500)
+        val passwordIcon = ObjectAnimator.ofFloat(binding.passIcon, View.ALPHA, 1f).setDuration(500)
+        val passwordInput = ObjectAnimator.ofFloat(binding.passwordInput, View.ALPHA, 1f).setDuration(500)
+        val separatorLine1 = ObjectAnimator.ofFloat(binding.view, View.ALPHA, 1f).setDuration(500)
+        val separatorText = ObjectAnimator.ofFloat(binding.tvSeparator, View.ALPHA, 1f).setDuration(500)
+        val separatorLine2 = ObjectAnimator.ofFloat(binding.view2, View.ALPHA, 1f).setDuration(500)
+        val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
+        val register = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
-            play(title).before(titleMessage)
-            play(emailText).after(titleMessage)
-            play(emailText).with(emailInput)
-            play(passwordText).after(emailText)
-            play(passwordText).with(passwordInput)
-            play(login).after(passwordText)
-            play(register).after(login)
+            play(title)
+            play(emailInput).with(emailIcon).after(title)
+            play(passwordInput).with(passwordIcon).after(emailInput)
+            play(login).after(passwordInput)
+            play(separatorText).with(separatorLine1).with(separatorLine2).after(login)
+            play(register).after(separatorText)
             start()
         }
     }
     private fun showError(msg: String) {
-        AlertDialog.Builder(this).apply {
-            setTitle("Failed!")
+        AlertDialog.Builder(this,R.style.AlertDialog).apply {
+            setTitle(getString(R.string.failed))
             setMessage(msg)
-            setNegativeButton("Ok") { dialog, _ ->
+            setNegativeButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
             create()

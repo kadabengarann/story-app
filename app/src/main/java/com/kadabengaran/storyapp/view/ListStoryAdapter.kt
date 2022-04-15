@@ -46,7 +46,6 @@ class ListStoryAdapter (private val data: MutableList<StoryItem>
                     .into(imgStory)
                 tvUsername.text = userItem.name
                 tvItemDate.text = itemView.context.getString(R.string.dateFormat, userItem.createdAt.withDateFormat())
-//                imgStory.transitionName = userItem.id
                 cardItem.transitionName = "card"+userItem.id
                 binding.root.setOnClickListener {
                     onItemClickCallback.onItemClicked(userItem, binding)

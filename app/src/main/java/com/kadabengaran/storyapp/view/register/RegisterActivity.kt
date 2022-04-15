@@ -3,17 +3,15 @@ package com.kadabengaran.storyapp.view.register
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowInsets
-import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
-import com.kadabengaran.storyapp.MainActivityOld
-import com.kadabengaran.storyapp.ViewModelFactory
+import com.kadabengaran.storyapp.R
+import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.ActivityRegisterBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.LoginBody
@@ -30,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var user: RegisterBody
     private val factory by lazy {
-        ViewModelFactory.getInstance(this)
+        ViewModelFactory.getInstance()
     }
     private val registerViewModel: RegisterViewModel by viewModels {
         factory
@@ -39,63 +37,45 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
+        supportActionBar?.hide()
         setContentView(binding.root)
-
-        setupView()
         setupViewModel()
         setupAction()
         playAnimation()
     }
 
-    private fun setupView() {
-        @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }
-        supportActionBar?.hide()
-    }
-
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
-
     }
 
     private fun setupAction() {
-        binding.registerButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            when {
-                name.isEmpty() -> {
-                    binding.nameEditTextLayout.error = "Masukkan email"
-                }
-                email.isEmpty() -> {
-                    binding.emailEditTextLayout.error = "Masukkan email"
-                }
-                password.isEmpty() -> {
-                    binding.passwordEditTextLayout.error = "Masukkan password"
-                }
-                else -> {
+        val name = binding.nameInput
+        val email = binding.emailInput
+        val password = binding.passwordInput
+
+        name.doAfterTextChanged { setRegisterEnable() }
+        password.doAfterTextChanged { setRegisterEnable() }
+        email.doAfterTextChanged { setRegisterEnable() }
+
+        binding.btnRegister.setOnClickListener {
+            val nameText = name.text.toString()
+            val emailText = email.text.toString()
+            val passwordText = password.text.toString()
                     user = RegisterBody(
-                        name,
-                        email,
-                        password
+                        nameText,
+                        emailText,
+                        passwordText
                     )
                     register(user)
-                }
-            }
         }
-        binding.loginButton.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }
-
+    private fun setRegisterEnable() {
+        binding.btnLogin.isEnabled = (binding.passwordInput.check() && binding.emailInput.check() && !binding.nameInput.text.isNullOrEmpty() )
+    }
     private fun login(loginBody: LoginBody) {
         registerViewModel.login(loginBody).observe(this) { result ->
             if (result != null) {
@@ -152,10 +132,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun showError(msg: String) {
-        AlertDialog.Builder(this).apply {
-            setTitle("Failed!")
+        AlertDialog.Builder(this,R.style.AlertDialog).apply {
+            setTitle(getString(R.string.failed))
             setMessage(msg)
-            setNegativeButton("Ok") { dialog, _ ->
+            setNegativeButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
             create()
@@ -165,31 +145,26 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
-        val nameText = ObjectAnimator.ofFloat(binding.nameTextView, View.ALPHA, 1f).setDuration(500)
-        val nameInput =
-            ObjectAnimator.ofFloat(binding.nameEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val emailText =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(500)
-        val emailInput =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val passwordText =
-            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(500)
-        val passwordInput =
-            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(500)
-        val register =
-            ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(500)
-        val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(500)
+        val nameIcon = ObjectAnimator.ofFloat(binding.nameIcon, View.ALPHA, 1f).setDuration(500)
+        val nameInput = ObjectAnimator.ofFloat(binding.nameInput, View.ALPHA, 1f).setDuration(500)
+        val emailIcon = ObjectAnimator.ofFloat(binding.emailIcon, View.ALPHA, 1f).setDuration(500)
+        val emailInput = ObjectAnimator.ofFloat(binding.emailInput, View.ALPHA, 1f).setDuration(500)
+        val passwordIcon = ObjectAnimator.ofFloat(binding.passIcon, View.ALPHA, 1f).setDuration(500)
+        val passwordInput = ObjectAnimator.ofFloat(binding.passwordInput, View.ALPHA, 1f).setDuration(500)
+        val separatorLine1 = ObjectAnimator.ofFloat(binding.view, View.ALPHA, 1f).setDuration(500)
+        val separatorText = ObjectAnimator.ofFloat(binding.tvSeparator, View.ALPHA, 1f).setDuration(500)
+        val separatorLine2 = ObjectAnimator.ofFloat(binding.view2, View.ALPHA, 1f).setDuration(500)
+        val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
+        val register = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
             play(title)
-            play(nameText).after(title)
-            play(nameText).with(nameInput)
-            play(emailText).after(nameText)
-            play(emailText).with(emailInput)
-            play(passwordText).after(emailText)
-            play(passwordText).with(passwordInput)
-            play(register).after(passwordText)
-            play(login).after(register)
+            play(nameInput).with(nameIcon).after(title)
+            play(emailInput).with(emailIcon).after(nameInput)
+            play(passwordInput).with(passwordIcon).after(emailInput)
+            play(register).after(passwordInput)
+            play(separatorText).with(separatorLine1).with(separatorLine2).after(register)
+            play(login).after(separatorText)
             start()
         }
     }

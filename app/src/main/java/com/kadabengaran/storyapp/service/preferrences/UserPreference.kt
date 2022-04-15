@@ -23,11 +23,6 @@ class UserPreference (private val context: Context) {
         }
     }
 
-    suspend fun saveUser(token: String) {
-        context.dataStore.edit { preferences ->
-//            preferences[SESSION_KEY] = token
-        }
-    }
     suspend fun saveSession(user: User) {
         context.dataStore.edit { preferences ->
             preferences[NAME_KEY] = user.name
@@ -62,21 +57,10 @@ class UserPreference (private val context: Context) {
         }
     }
     companion object {
-
         private val NAME_KEY = stringPreferencesKey("name")
-        private val EMAIL_KEY = stringPreferencesKey("email")
         private val SESSION_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
         private val THEME_KEY = booleanPreferencesKey("theme_setting")
-
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
-        /*fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
-            return INSTANCE ?: synchronized(this) {
-                val instance = UserPreference(dataStore)
-                INSTANCE = instance
-                instance
-            }
-        }*/
     }
 }

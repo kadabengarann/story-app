@@ -1,12 +1,8 @@
 package com.kadabengaran.storyapp.view
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.view.View
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.ActivityMainBinding
 import com.kadabengaran.storyapp.view.login.LoginActivity
@@ -77,8 +74,5 @@ class MainActivity : AppCompatActivity() {
     }
     private fun showBottomNav(bool: Boolean) {
         binding.navView.visibility = if(bool) View.VISIBLE else View.GONE
-    }
-    fun backToHome(){
-        navController.navigate(R.id.navigation_home)
     }
 }

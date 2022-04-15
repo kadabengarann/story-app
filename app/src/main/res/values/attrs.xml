@@ -17,5 +17,6 @@
     <attr name="tabMainIndicator" format="color" />
 
     <attr name="actionColor" format="color" />
+    <attr name="actionColorDisabled" format="color" />
     <attr name="onActionColor" format="color" />
 </resources>

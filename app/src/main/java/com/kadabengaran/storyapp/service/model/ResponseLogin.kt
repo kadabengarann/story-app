@@ -2,18 +2,15 @@ package com.kadabengaran.storyapp.service.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
-class ResponseStory (
+class ResponseStory(
     @field:SerializedName("error")
     val error: Boolean,
 
-    @field:SerializedName("message")
-    val message: String,
-
     @field:SerializedName("listStory")
     val listStory: List<StoryItem>
-    )
+)
 
 @Parcelize
 data class StoryItem(
@@ -29,12 +26,9 @@ data class StoryItem(
     val createdAt: String,
     ):Parcelable
 
-class ResponseLogin (
+class ResponseLogin(
     @field:SerializedName("error")
     val error: Boolean,
-
-    @field:SerializedName("message")
-    val message: String,
 
     @field:SerializedName("loginResult")
     val loginResult: LoginResult
