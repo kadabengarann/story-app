@@ -47,15 +47,16 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-    override fun onSupportNavigateUp(): Boolean
-    {
+
+    override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp()
     }
+
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
         preferenceViewModel.getUser().observe(this) { user ->
-            if (!user.isLogin){
+            if (!user.isLogin) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
@@ -71,7 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     private fun showBottomNav(bool: Boolean) {
-        binding.navView.visibility = if(bool) View.VISIBLE else View.GONE
+        binding.navView.visibility = if (bool) View.VISIBLE else View.GONE
     }
 }

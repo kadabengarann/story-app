@@ -29,6 +29,7 @@ class DetailActivity : AppCompatActivity() {
             imgStory.loadImage(dataStory.photoUrl)
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

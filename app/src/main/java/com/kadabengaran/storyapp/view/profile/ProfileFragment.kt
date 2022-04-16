@@ -26,20 +26,24 @@ class ProfileFragment : Fragment() {
         setupViewModel()
         return root
     }
+
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         super.onCreateOptionsMenu(menu, menuInflater)
         menuInflater.inflate(R.menu.profile_menu, menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting -> {
-                view?.findNavController()?.navigate(R.id.action_navigation_profile_to_settingDialogFragment)
+                view?.findNavController()
+                    ?.navigate(R.id.action_navigation_profile_to_settingDialogFragment)
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
         preferenceViewModel.getUser().observe(viewLifecycleOwner) { user ->

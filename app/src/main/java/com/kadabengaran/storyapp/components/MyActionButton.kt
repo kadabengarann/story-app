@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.kadabengaran.storyapp.R
 
-class MyActionButton: AppCompatButton {
+class MyActionButton : AppCompatButton {
     private var enabledBackground: Drawable? = null
     private var disabledBackground: Drawable? = null
     private var txtColor: Int = 0
@@ -17,12 +17,19 @@ class MyActionButton: AppCompatButton {
     constructor(context: Context) : super(context) {
         init()
     }
+
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         init()
     }
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init()
     }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         background = when {
@@ -32,6 +39,7 @@ class MyActionButton: AppCompatButton {
         setTextColor(txtColor)
         gravity = Gravity.CENTER
     }
+
     private fun init() {
         txtColor = ContextCompat.getColor(context, android.R.color.background_light)
         enabledBackground = ContextCompat.getDrawable(context, R.drawable.action_button)

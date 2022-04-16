@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.StoryRepository
 import com.kadabengaran.storyapp.service.model.StoryItem
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class HomeViewModel (private val storyRepository: StoryRepository): ViewModel() {
+class HomeViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
     var fetched = false
 
@@ -33,11 +33,13 @@ class HomeViewModel (private val storyRepository: StoryRepository): ViewModel() 
                 }
             }
         }
-        fetched =true
+        fetched = true
     }
-    fun setToken(token:String) {
+
+    fun setToken(token: String) {
         _tokenSession.postValue(token)
     }
+
     fun getToken(): LiveData<String> {
         return _tokenSession
     }

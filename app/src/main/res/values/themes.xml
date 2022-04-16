@@ -34,13 +34,10 @@
         <item name="android:windowExitTransition">@android:transition/fade</item>
     </style>
 
-    <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+    <style name="AlertDialog" parent="Base.Theme.AppCompat.Dialog">
         <item name="android:textColor">?attr/textColorPrimary</item>
         <item name="android:textColorPrimary">?attr/textColorPrimary</item>
         <item name="android:colorAccent">@color/blue_700</item>
-        <item name="android:background">@drawable/rounded_dialog_bg</item>
-    </style>
-    <style name="BottomDialog" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/rounded_dialog_bg</item>
     </style>
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">

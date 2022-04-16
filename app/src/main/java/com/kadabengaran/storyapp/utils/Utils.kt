@@ -5,20 +5,15 @@ import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Priority
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.kadabengaran.storyapp.R
 import java.io.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.sql.DataSource
 
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
@@ -35,11 +30,13 @@ fun ImageView.loadImage(url: String?) {
         .dontTransform()
         .into(this)
 }
+
 fun String.withDateFormat(): String {
     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
     val date = format.parse(this) as Date
     return DateFormat.getDateInstance(DateFormat.FULL).format(date)
 }
+
 fun createTempFile(context: Context): File {
     val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
     return File.createTempFile(timeStamp, ".jpg", storageDir)
@@ -71,6 +68,7 @@ fun createFile(application: Application): File {
 
     return File(outputDirectory, "$timeStamp.jpg")
 }
+
 fun reduceFileImage(file: File): File {
     val bitmap = BitmapFactory.decodeFile(file.path)
     var compressQuality = 100

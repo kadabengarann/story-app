@@ -11,12 +11,12 @@ import com.kadabengaran.storyapp.service.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserPreference (private val context: Context) {
-   fun getUser(): Flow<User> {
+class UserPreference(private val context: Context) {
+    fun getUser(): Flow<User> {
         return context.dataStore.data.map { preferences ->
             User(
-                preferences[NAME_KEY] ?:"",
-                preferences[SESSION_KEY] ?:"",
+                preferences[NAME_KEY] ?: "",
+                preferences[SESSION_KEY] ?: "",
                 preferences[STATE_KEY] ?: false
 
             )
@@ -31,6 +31,7 @@ class UserPreference (private val context: Context) {
 
         }
     }
+
     suspend fun login() {
         context.dataStore.edit { preferences ->
             preferences[STATE_KEY] = true
@@ -45,6 +46,7 @@ class UserPreference (private val context: Context) {
 
         }
     }
+
     fun getThemeSetting(): Flow<Boolean> {
         return context.dataStore.data.map { preferences ->
             preferences[THEME_KEY] ?: false
@@ -56,6 +58,7 @@ class UserPreference (private val context: Context) {
             preferences[THEME_KEY] = isDarkModeActive
         }
     }
+
     companion object {
         private val NAME_KEY = stringPreferencesKey("name")
         private val SESSION_KEY = stringPreferencesKey("password")
