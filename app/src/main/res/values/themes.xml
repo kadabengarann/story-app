@@ -4,6 +4,9 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant2">#F9FBFF</item>
+        <item name="colorPrimaryVariant3">#25272B</item>
+
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,16 +15,25 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="dividerColor">@color/white</item>
+
         <item name="actionColor">@color/blue_700</item>
         <item name="actionColorDisabled">@color/blue_200</item>
         <item name="onActionColor">@color/white</item>
         <item name="textColorPrimary">#24292E</item>
         <item name="textColorSecondary">#5F676F</item>
 
+
+        <item name="backColor">#F2F5FA</item>
+
         <item name="tabColor">@color/black</item>
         <item name="tabDisabledColor">#2F2F2F2F</item>
 
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowExitTransition">@android:transition/fade</item>
     </style>
+
     <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
         <item name="android:textColor">?attr/textColorPrimary</item>
         <item name="android:textColorPrimary">?attr/textColorPrimary</item>
@@ -37,7 +49,7 @@
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
         <item name="colorPrimary">@color/teal_200</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">?attr/textColorPrimary</item>
     </style>
 
     <style name="Theme.StoryApp.Button">

@@ -1,14 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Story App</string>
+    <string name="register">Daftar</string>
+    <string name="login">Masuk</string>
 
-    <string name="register">Register</string>
-    <string name="login">Login</string>
-    <string name="lorem" translatable="false">Lorem Ipsum</string>
-
-    <string name="dateFormat">Uploaded on %1$s</string>
+    <string name="dateFormat">Diunggah pada %1$s</string>
 
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Kata sandi</string>
     <string name="message_login_page">Please login to continue</string>
     <string name="title_login_page">Login</string>
     <string name="name">Name</string>

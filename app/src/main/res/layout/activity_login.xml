@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorPrimaryVariant2"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".view.login.LoginActivity">
@@ -14,12 +15,34 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:contentDescription="@string/illustration_desc"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
-        app:srcCompat="@drawable/img_login"
-        android:contentDescription="@string/illustration_desc" />
+        app:srcCompat="@drawable/img_login" />
+
+    <ImageView
+        android:id="@+id/emailIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="@+id/email_input"
+        app:layout_constraintStart_toStartOf="@+id/titleTextView"
+        app:layout_constraintTop_toTopOf="@+id/email_input"
+        app:srcCompat="@drawable/ic_baseline_email_24"
+        tools:alpha="1" />
+
+    <ImageView
+        android:id="@+id/passIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        app:layout_constraintBottom_toBottomOf="@+id/password_input"
+        app:layout_constraintStart_toStartOf="@+id/emailIcon"
+        app:layout_constraintTop_toTopOf="@+id/password_input"
+        app:srcCompat="@drawable/ic_baseline_lock_24"
+        tools:alpha="1" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -29,16 +52,54 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
-        tools:alpha="1"
         android:text="@string/login"
-        android:textColor="@color/black"
+        android:textColor="?attr/textColorPrimary"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal"
-         />
+        tools:alpha="1" />
+
+    <TextView
+        android:id="@+id/tv_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:alpha="0"
+        android:text="@string/new_to_app"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        tools:alpha="1" />
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:alpha="0"
+        android:background="?attr/textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_separator"
+        app:layout_constraintEnd_toStartOf="@+id/tv_separator"
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
+        app:layout_constraintTop_toTopOf="@+id/tv_separator"
+        tools:alpha="1" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:alpha="0"
+        android:background="?attr/textColorSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_separator"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login"
+        app:layout_constraintStart_toEndOf="@+id/tv_separator"
+        app:layout_constraintTop_toTopOf="@+id/tv_separator"
+        tools:alpha="1" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineHorizontal"
@@ -67,100 +128,6 @@
         app:layout_constraintGuide_percent="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <com.kadabengaran.storyapp.components.MyEditText
-        android:id="@+id/email_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:alpha="0"
-        tools:alpha="1"
-        android:ems="10"
-        android:hint="@string/email"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/passIcon"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
-
-    <ImageView
-        android:id="@+id/emailIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        tools:alpha="1"
-        app:layout_constraintBottom_toBottomOf="@+id/email_input"
-        app:layout_constraintStart_toStartOf="@+id/titleTextView"
-        app:layout_constraintTop_toTopOf="@+id/email_input"
-        app:srcCompat="@drawable/ic_baseline_email_24" />
-
-    <com.kadabengaran.storyapp.components.MyPasswordEditText
-        android:id="@+id/password_input"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
-        android:focusableInTouchMode="true"
-        android:alpha="0"
-        tools:alpha="1"
-        android:ems="10"
-        android:hint="@string/password"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/passIcon"
-        app:layout_constraintTop_toBottomOf="@+id/email_input" />
-
-    <ImageView
-        android:id="@+id/passIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        tools:alpha="1"
-        app:layout_constraintBottom_toBottomOf="@+id/password_input"
-        app:layout_constraintStart_toStartOf="@+id/emailIcon"
-        app:layout_constraintTop_toTopOf="@+id/password_input"
-        app:srcCompat="@drawable/ic_baseline_lock_24" />
-
-    <TextView
-        android:id="@+id/tv_separator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/new_to_app"
-        android:alpha="0"
-        tools:alpha="1"
-        app:layout_constraintEnd_toEndOf="@+id/btn_login"
-        app:layout_constraintStart_toStartOf="@+id/btn_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
-        android:background="?attr/textColorSecondary"
-        android:alpha="0"
-        tools:alpha="1"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_separator"
-        app:layout_constraintEnd_toStartOf="@+id/tv_separator"
-        app:layout_constraintStart_toStartOf="@+id/btn_login"
-        app:layout_constraintTop_toTopOf="@+id/tv_separator" />
-
-    <View
-        android:id="@+id/view2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:background="?attr/textColorSecondary"
-        android:alpha="0"
-        tools:alpha="1"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_separator"
-        app:layout_constraintEnd_toEndOf="@+id/btn_login"
-        app:layout_constraintStart_toEndOf="@+id/tv_separator"
-        app:layout_constraintTop_toTopOf="@+id/tv_separator" />
-
     <com.kadabengaran.storyapp.components.MyActionButton
         android:id="@+id/btn_login"
         android:layout_width="0dp"
@@ -178,6 +145,39 @@
         tools:alpha="1"
         tools:ignore="UnusedAttribute" />
 
+    <com.kadabengaran.storyapp.components.MyEditText
+        android:id="@+id/email_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:alpha="0"
+        android:ems="10"
+        android:hint="@string/email"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/passIcon"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+        tools:alpha="1" />
+
+    <com.kadabengaran.storyapp.components.MyPasswordEditText
+        android:id="@+id/password_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:alpha="0"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:hint="@string/password"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/passIcon"
+        app:layout_constraintTop_toBottomOf="@+id/email_input"
+        tools:alpha="1" />
+
     <com.kadabengaran.storyapp.components.MySecondaryButton
         android:id="@+id/btn_register"
         android:layout_width="0dp"
@@ -186,16 +186,16 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:alpha="0"
-        tools:alpha="1"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="@string/register"
         android:textColor="?attr/actionColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_separator"
+        tools:alpha="1"
         tools:ignore="UnusedAttribute" />
 
     <include
         android:id="@+id/inc_progress"
-        layout="@layout/progress_overlay"/>
+        layout="@layout/progress_overlay" />
 </androidx.constraintlayout.widget.ConstraintLayout>

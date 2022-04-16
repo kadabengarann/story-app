@@ -39,6 +39,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.root)
+        setRegisterEnable()
         setupViewModel()
         setupAction()
         playAnimation()
@@ -74,7 +75,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
     private fun setRegisterEnable() {
-        binding.btnLogin.isEnabled = (binding.passwordInput.check() && binding.emailInput.check() && !binding.nameInput.text.isNullOrEmpty() )
+        binding.btnRegister.isEnabled = (binding.passwordInput.check() && binding.emailInput.check() && !binding.nameInput.text.isNullOrEmpty() )
     }
     private fun login(loginBody: LoginBody) {
         registerViewModel.login(loginBody).observe(this) { result ->

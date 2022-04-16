@@ -16,7 +16,6 @@ import com.kadabengaran.storyapp.R
 class MyEditText: AppCompatEditText, View.OnTouchListener {
 
     private lateinit var mClearIconButtonImage: Drawable
-    private lateinit var mClearIconButtonImageZ: Drawable
 
     constructor(context: Context) : super(context) {
         init()
@@ -33,7 +32,6 @@ class MyEditText: AppCompatEditText, View.OnTouchListener {
     }
     private fun init() {
         mClearIconButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_baseline_close_24) as Drawable
-        mClearIconButtonImageZ = ContextCompat.getDrawable(context, R.drawable.ic_dashboard_black_24dp) as Drawable
         setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
         isSingleLine = true
         setOnTouchListener(this)

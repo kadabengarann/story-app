@@ -6,26 +6,40 @@
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/action_button.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/action_button_disabled.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/bg_button_secondary.xml" value="0.2335" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_add_box.xml" value="0.124" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.124" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.124" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1435" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.124" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_basline_log.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_camera.xml" value="0.232" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_capture.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1435" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.232" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_language.xml" value="0.232" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.232" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.232" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_palette.xml" value="0.232" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_place_holder.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_switch_camera.xml" value="0.232" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/ic_visibility.xml" value="0.232" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/drawable/rounded_dialog_bg.xml" value="0.124" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout-v23/fragment_post_story.xml" value="0.22056159420289856" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_camera.xml" value="0.1" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_detail.xml" value="0.46081208687440983" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.11302083333333333" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/activity_register.xml" value="0.2223731884057971" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_camera_dialog.xml" value="0.22056159420289856" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_detail.xml" value="0.2825520833333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_home.xml" value="0.2825520833333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.22056159420289856" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_post_story.xml" value="0.2" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_post_story.xml" value="0.37185929648241206" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/fragment_setting_dialog.xml" value="0.4" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/item_stories.xml" value="0.583732057416268" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/item_stories.xml" value="0.3925729442970822" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/progress_overlay.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/layout/progress_overlay_block.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />

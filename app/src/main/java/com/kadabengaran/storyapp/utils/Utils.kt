@@ -5,15 +5,20 @@ import android.content.ContentResolver
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.kadabengaran.storyapp.R
 import java.io.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.sql.DataSource
 
 
 private const val FILENAME_FORMAT = "dd-MMM-yyyy"
@@ -26,8 +31,8 @@ val timeStamp: String = SimpleDateFormat(
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context)
         .load(url)
-        .placeholder(R.drawable.loading_image)
-        .error(R.drawable.error_image)
+        .onlyRetrieveFromCache(true)
+        .dontTransform()
         .into(this)
 }
 fun String.withDateFormat(): String {

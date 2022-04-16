@@ -14,6 +14,7 @@
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
 
+    card_view:cardBackgroundColor="?attr/colorPrimaryVariant2"
     card_view:cardCornerRadius="12dp"
     card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true">
@@ -38,11 +39,10 @@
             android:id="@+id/img_item_avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:contentDescription="@string/profile_image_description"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:srcCompat="@drawable/ic_capture"
-            tools:srcCompat="@tools:sample/avatars"
-            android:contentDescription="@string/profile_image_description" />
+            card_view:srcCompat="@drawable/img_profile" />
 
         <TextView
             android:id="@+id/tv_username"

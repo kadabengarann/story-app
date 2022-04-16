@@ -1,11 +1,17 @@
 package com.kadabengaran.storyapp.view.home
 
+import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +26,7 @@ import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.view.ListStoryAdapter
 import com.kadabengaran.storyapp.view.PreferenceViewModel
+import com.kadabengaran.storyapp.view.detail.DetailActivity
 
 class HomeFragment : Fragment() {
 
@@ -53,16 +60,12 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         setupViewModel()
-        Log.d("HomeFragment", "onCreateView: create")
         return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData()
-//        setupView()
-//        setupAction()
-        Log.d("HomeFragment", "onViewCreated: create")
         binding.rvStories.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
@@ -73,7 +76,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        Log.d("HomeFragment", "onDestroyView: destroyy")
     }
 
     private fun setupViewModel() {
@@ -120,40 +122,38 @@ class HomeFragment : Fragment() {
             binding.grError.visibility = View.GONE
             homeViewModel.getStories()
         }
-        Log.d(TAG, "proce_showError: $error")
+        Log.d(TAG, "showError: $error")
 
     }
 
     private fun setStories(storyList: List<StoryItem>) {
         if (storyList.isEmpty()) {
-            Log.d(TAG, "procc_setStories : NO DATA")
+            Log.d(TAG, "setStories : NO DATA")
         }
-
         val listUser = ArrayList<StoryItem>()
         for (user in storyList) {
             listUser.add(user)
         }
         binding.rvStories.visibility = View.VISIBLE
         storyAdapter.setData(storyList)
-        storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryItem, binding: ItemStoriesBinding) {
-                val toDetailCategoryFragment =
-                    HomeFragmentDirections.actionNavigationHomeToDetailFragment(
-                        data
-                    )
-                val extras = FragmentNavigatorExtras(
-//                    imageView to data.id,
-                    binding.cardItem to "card"+data.id,
-                )
-//                toDetailCategoryFragment.stock = 7
-                view?.findNavController()?.navigate(toDetailCategoryFragment,extras)
 
-                Log.d(TAG, "procc_setStories: Cliked data $data")
+        storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: StoryItem, cardItem: CardView) {
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra("Story", data)
+
+                val optionsCompat: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        requireContext() as Activity,
+                        Pair(cardItem, "parentCard")
+                    )
+                requireContext().startActivity(intent,optionsCompat.toBundle())
+                Log.d(TAG, "setStories: Cliked data $data")
             }
         })    }
 
     private fun showLoading(b: Boolean) {
-        Log.d(TAG, "procc_setStories: LOADING.....")
+        Log.d(TAG, "setStories: LOADING.....")
         binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE
     }
 }

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kadabengaran.storyapp.R
@@ -41,21 +42,21 @@ class ListStoryAdapter (private val data: MutableList<StoryItem>
             with(binding) {
                 Glide.with(itemView)
                     .load(userItem.photoUrl)
+                    .dontTransform()
                     .placeholder(R.drawable.loading_image)
                     .error(R.drawable.error_image)
                     .into(imgStory)
                 tvUsername.text = userItem.name
                 tvItemDate.text = itemView.context.getString(R.string.dateFormat, userItem.createdAt.withDateFormat())
-                cardItem.transitionName = "card"+userItem.id
                 binding.root.setOnClickListener {
-                    onItemClickCallback.onItemClicked(userItem, binding)
+                    onItemClickCallback.onItemClicked(userItem, cardItem)
                 }
             }
         }
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: StoryItem, binding: ItemStoriesBinding)
+        fun onItemClicked(data: StoryItem, cardItem: CardView)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
