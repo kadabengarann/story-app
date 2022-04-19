@@ -98,6 +98,7 @@ class RegisterActivity : AppCompatActivity() {
                             )
                         )
                         startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     }
                     is Result.Error -> {
                         showLoading(false)
