@@ -8,24 +8,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
-import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.FragmentHomeBinding
-import com.kadabengaran.storyapp.databinding.ItemStoriesBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.view.ListStoryAdapter
 import com.kadabengaran.storyapp.view.PreferenceViewModel
+import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.view.detail.DetailActivity
 
 class HomeFragment : Fragment() {
@@ -39,6 +35,7 @@ class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels {
         factory
     }
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -47,6 +44,7 @@ class HomeFragment : Fragment() {
             mutableListOf()
         )
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enterTransition = MaterialFadeThrough()
@@ -84,7 +82,7 @@ class HomeFragment : Fragment() {
             homeViewModel.setToken(user.token)
         }
         if (!homeViewModel.fetched) {
-            homeViewModel.tokenSession.observe(viewLifecycleOwner){
+            homeViewModel.tokenSession.observe(viewLifecycleOwner) {
                 if (!it.isNullOrEmpty())
                     homeViewModel.getStories()
             }
@@ -92,12 +90,14 @@ class HomeFragment : Fragment() {
         }
         Log.d(TAG, "setupViewModel: ${homeViewModel.fetched}")
     }
+
     private fun observeData() {
         homeViewModel.listStory.observe(viewLifecycleOwner) {
             processData(it)
         }
     }
-    private fun processData( result: Result<List<StoryItem>>){
+
+    private fun processData(result: Result<List<StoryItem>>) {
         if (result != null) {
             when (result) {
                 is Result.Loading -> {
@@ -115,6 +115,7 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
     private fun showError(error: String) {
         binding.grError.visibility = View.VISIBLE
         binding.tvError.text = error
@@ -147,10 +148,11 @@ class HomeFragment : Fragment() {
                         requireContext() as Activity,
                         Pair(cardItem, "parentCard")
                     )
-                requireContext().startActivity(intent,optionsCompat.toBundle())
+                requireContext().startActivity(intent, optionsCompat.toBundle())
                 Log.d(TAG, "setStories: Cliked data $data")
             }
-        })    }
+        })
+    }
 
     private fun showLoading(b: Boolean) {
         Log.d(TAG, "setStories: LOADING.....")

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class PostStoryViewModel (private val storyRepository: StoryRepository): ViewModel() {
+class PostStoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
     private val _uploadResult = MutableLiveData<Result<FileUploadResponse>?>()
     val uploadResult: MutableLiveData<Result<FileUploadResponse>?> = _uploadResult
@@ -22,9 +22,11 @@ class PostStoryViewModel (private val storyRepository: StoryRepository): ViewMod
     fun getToken(): LiveData<String> {
         return _tokenSession
     }
-    fun postToken(s:String){
+
+    fun postToken(s: String) {
         return _tokenSession.postValue(s)
     }
+
     fun postStory(file: MultipartBody.Part, description: RequestBody) {
         viewModelScope.launch {
             getToken().value?.let { token ->
@@ -34,7 +36,8 @@ class PostStoryViewModel (private val storyRepository: StoryRepository): ViewMod
             }
         }
     }
-    fun resetProgress(){
+
+    fun resetProgress() {
         _uploadResult.value = null
     }
 }

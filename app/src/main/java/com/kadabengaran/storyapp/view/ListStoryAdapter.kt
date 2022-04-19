@@ -1,10 +1,7 @@
 package com.kadabengaran.storyapp.view
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,7 +10,8 @@ import com.kadabengaran.storyapp.databinding.ItemStoriesBinding
 import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.utils.withDateFormat
 
-class ListStoryAdapter (private val data: MutableList<StoryItem>
+class ListStoryAdapter(
+    private val data: MutableList<StoryItem>
 ) : RecyclerView.Adapter<ListStoryAdapter.ViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -47,7 +45,10 @@ class ListStoryAdapter (private val data: MutableList<StoryItem>
                     .error(R.drawable.error_image)
                     .into(imgStory)
                 tvUsername.text = userItem.name
-                tvItemDate.text = itemView.context.getString(R.string.dateFormat, userItem.createdAt.withDateFormat())
+                tvItemDate.text = itemView.context.getString(
+                    R.string.dateFormat,
+                    userItem.createdAt.withDateFormat()
+                )
                 binding.root.setOnClickListener {
                     onItemClickCallback.onItemClicked(userItem, cardItem)
                 }

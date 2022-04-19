@@ -34,15 +34,17 @@ class SettingDialogFragment : BottomSheetDialogFragment() {
         setupAction()
         return root
     }
+
     private fun setupViewModel() {
-       preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
+        preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
         preferenceViewModel.getThemeSettings().observe(
             this
         ) { isDarkModeActive: Boolean ->
             switch_id.isChecked = isDarkModeActive
         }
     }
-    private fun setupAction(){
+
+    private fun setupAction() {
         binding.touchLogout.setOnClickListener {
             preferenceViewModel.logout()
             dismiss()
@@ -50,10 +52,11 @@ class SettingDialogFragment : BottomSheetDialogFragment() {
         binding.touchLang.setOnClickListener {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
-        binding.darkModeSwitch.setOnCheckedChangeListener{ _: CompoundButton?, isChecked: Boolean ->
+        binding.darkModeSwitch.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
             preferenceViewModel.saveThemeSetting(isChecked)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

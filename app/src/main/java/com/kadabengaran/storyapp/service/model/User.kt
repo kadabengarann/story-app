@@ -5,11 +5,13 @@ data class User(
     val token: String,
     val isLogin: Boolean
 )
+
 data class RegisterBody(
     var name: String,
     var email: String,
     var password: String
-    )
+)
+
 data class LoginBody(
     val email: String,
     val password: String

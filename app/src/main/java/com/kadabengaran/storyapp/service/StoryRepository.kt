@@ -25,6 +25,7 @@ class StoryRepository private constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
     fun login(login: LoginBody): Flow<Result<LoginResult>?> {
         return flow {
             emit(Result.Loading)
@@ -37,7 +38,8 @@ class StoryRepository private constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
-    suspend fun fetchStoryList(token:String): Flow<Result<List<StoryItem>>?> {
+
+    suspend fun fetchStoryList(token: String): Flow<Result<List<StoryItem>>?> {
         return flow {
             emit(Result.Loading)
             try {
@@ -49,15 +51,16 @@ class StoryRepository private constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
     suspend fun postStory(
-        token:String,
+        token: String,
         file: MultipartBody.Part,
         description: RequestBody
     ): Flow<Result<FileUploadResponse>> {
         return flow {
             emit(Result.Loading)
             try {
-                val result = apiService.uploadImage("Bearer $token",file,description)
+                val result = apiService.uploadImage("Bearer $token", file, description)
                 emit(Result.Success(result))
             } catch (e: Exception) {
                 Log.d("StoryRepository", "UploadStory: ${e.message.toString()} ")
@@ -65,6 +68,7 @@ class StoryRepository private constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
     companion object {
         @Volatile
         private var instance: StoryRepository? = null

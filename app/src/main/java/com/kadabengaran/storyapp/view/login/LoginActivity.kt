@@ -11,13 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.kadabengaran.storyapp.R
-import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.databinding.ActivityLoginBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.LoginBody
 import com.kadabengaran.storyapp.service.model.User
 import com.kadabengaran.storyapp.view.MainActivity
 import com.kadabengaran.storyapp.view.PreferenceViewModel
+import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.view.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -31,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private val loginViewModel: LoginViewModel by viewModels {
         factory
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupView() {
-       supportActionBar?.hide()
+        supportActionBar?.hide()
         setLoginEnable()
     }
 
@@ -60,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             val emailText = email.text.toString()
             val passwordText = password.text.toString()
-                    login(LoginBody( emailText, passwordText))
+            login(LoginBody(emailText, passwordText))
         }
         binding.btnRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -72,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.isEnabled = (binding.passwordInput.check() && binding.emailInput.check())
     }
 
-    private fun login(login: LoginBody){
+    private fun login(login: LoginBody) {
         loginViewModel.login(login).observe(this) { result ->
             if (result != null) {
                 when (result) {
@@ -81,11 +82,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         showLoading(false)
-                        saveSession(User(
-                            result.data.name,
-                            result.data.token,
-                            true,
-                        ))
+                        saveSession(
+                            User(
+                                result.data.name,
+                                result.data.token,
+                                true,
+                            )
+                        )
                         startActivity(Intent(this, MainActivity::class.java))
                     }
                     is Result.Error -> {
@@ -97,20 +100,25 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private fun saveSession(user: User){
+
+    private fun saveSession(user: User) {
         preferenceViewModel.saveSession(user)
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.incProgress.progressOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(500)
         val emailIcon = ObjectAnimator.ofFloat(binding.emailIcon, View.ALPHA, 1f).setDuration(500)
         val emailInput = ObjectAnimator.ofFloat(binding.emailInput, View.ALPHA, 1f).setDuration(500)
         val passwordIcon = ObjectAnimator.ofFloat(binding.passIcon, View.ALPHA, 1f).setDuration(500)
-        val passwordInput = ObjectAnimator.ofFloat(binding.passwordInput, View.ALPHA, 1f).setDuration(500)
+        val passwordInput =
+            ObjectAnimator.ofFloat(binding.passwordInput, View.ALPHA, 1f).setDuration(500)
         val separatorLine1 = ObjectAnimator.ofFloat(binding.view, View.ALPHA, 1f).setDuration(500)
-        val separatorText = ObjectAnimator.ofFloat(binding.tvSeparator, View.ALPHA, 1f).setDuration(500)
+        val separatorText =
+            ObjectAnimator.ofFloat(binding.tvSeparator, View.ALPHA, 1f).setDuration(500)
         val separatorLine2 = ObjectAnimator.ofFloat(binding.view2, View.ALPHA, 1f).setDuration(500)
         val login = ObjectAnimator.ofFloat(binding.btnLogin, View.ALPHA, 1f).setDuration(500)
         val register = ObjectAnimator.ofFloat(binding.btnRegister, View.ALPHA, 1f).setDuration(500)
@@ -125,8 +133,9 @@ class LoginActivity : AppCompatActivity() {
             start()
         }
     }
+
     private fun showError(msg: String) {
-        AlertDialog.Builder(this,R.style.AlertDialog).apply {
+        AlertDialog.Builder(this, R.style.AlertDialog).apply {
             setTitle(getString(R.string.failed))
             setMessage(msg)
             setNegativeButton("OK") { dialog, _ ->

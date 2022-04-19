@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register">Registro</string>
+    <string name="login">Acceso</string>
+    <string name="dateFormat">Subido el %1$s</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Clave</string>
+    <string name="message_login_page">Por favor inicie sesión para continuar</string>
+    <string name="title_login_page">Acceso</string>
+    <string name="name">Nombre</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="title_home">Casa</string>
+    <string name="title_post_story">Agregar historia</string>
+    <string name="title_detail_story">Historia</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
+    <string name="upload">Subir</string>
+    <string name="title_profile">Perfil</string>
+    <string name="setting">Entorno</string>
+    <string name="error_string">Error al cargar datos</string>
+    <string name="btn_retry_string">Rever</string>
+    <string name="illustration_desc">Una ilustración</string>
+    <string name="new_to_app">¿Nuevo en StoryApp?</string>
+    <string name="not_new_to_app">¿Tener una cuenta?</string>
+    <string name="name_empty">Ingrese su nombre</string>
+    <string name="email_empty">Ingrese correo electrónico</string>
+    <string name="email_invalid">Formato de correo electrónico incorrecto</string>
+    <string name="password_empty">Introducir la contraseña</string>
+    <string name="password_invalid">La contraseña debe tener 6 caracteres o más</string>
+    <string name="failed">¡Ha fallado!</string>
+    <string name="write_a_caption">Escribir un subtitulo…</string>
+    <string name="upload_image_from">Subir imagen desde</string>
+    <string name="or">o</string>
+    <string name="no_image_selected">Por favor sube la imagen primero</string>
+    <string name="permission_failed">no se pudo obtener el permiso de la aplicación.</string>
+    <string name="language">Idioma</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="profile_image_description">Imagen de perfil</string>
+    <string name="input_empty">Por favor complete este campo</string>
+</resources>

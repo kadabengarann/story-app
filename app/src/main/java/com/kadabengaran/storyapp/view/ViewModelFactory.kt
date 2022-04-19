@@ -9,10 +9,11 @@ import com.kadabengaran.storyapp.view.login.LoginViewModel
 import com.kadabengaran.storyapp.view.post.PostStoryViewModel
 import com.kadabengaran.storyapp.view.register.RegisterViewModel
 
-class ViewModelFactory(private val storyRepository: StoryRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val storyRepository: StoryRepository) :
+    ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T = when(modelClass) {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = when (modelClass) {
         RegisterViewModel::class.java -> RegisterViewModel(storyRepository)
         LoginViewModel::class.java -> LoginViewModel(storyRepository)
         HomeViewModel::class.java -> HomeViewModel(storyRepository)

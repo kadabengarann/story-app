@@ -24,7 +24,7 @@ data class StoryItem(
     val photoUrl: String,
     @field:SerializedName("createdAt")
     val createdAt: String,
-    ):Parcelable
+) : Parcelable
 
 class ResponseLogin(
     @field:SerializedName("error")
@@ -38,6 +38,7 @@ data class ResponseRegister(
     @field:SerializedName("message")
     val message: String,
 )
+
 data class LoginResult(
     @field:SerializedName("userId")
     val userId: String,
@@ -48,6 +49,7 @@ data class LoginResult(
     @field:SerializedName("token")
     val token: String,
 )
+
 data class FileUploadResponse(
     @field:SerializedName("error")
     val error: Boolean,

@@ -13,22 +13,20 @@
     <string name="title_login_page">Login</string>
     <string name="name">Name</string>
     <string name="logout">Log Out</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_post_story">Add Story</string>
     <string name="title_detail_story">Story</string>
 
-    <string name="camera_x">CameraX</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
-    <string name="title_activity_camera">CameraActivity</string>
 
     <string name="title_profile">Profile</string>
     <string name="setting">Setting</string>
     <string name="error_string">Failed to load data</string>
     <string name="btn_retry_string">Retry</string>
-    <string name="lorem_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis orci sit amet lacus pellentesque vehicula. Fusce ut scelerisque ipsum. Sed eget sodales leo. Donec cursus</string>
+    <string name="lorem_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam venenatis orci sit amet lacus pellentesque vehicula. Fusce ut scelerisque ipsum. Sed eget sodales leo. Donec cursus</string>
     <string name="illustration_desc">An illustration</string>
     <string name="new_to_app">New to StoryApp?</string>
     <string name="not_new_to_app">Have an account?</string>
@@ -38,14 +36,14 @@
     <string name="password_empty">Enter password</string>
     <string name="password_invalid">Password must be 6 characters long or more</string>
     <string name="failed">Failed!</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="write_a_caption">Write a caption…</string>
     <string name="upload_image_from">Upload image from</string>
-    <string name="or">OR</string>
+    <string name="or">or</string>
     <string name="no_image_selected">Please upload image first</string>
     <string name="permission_failed">failed to get app permission.</string>
     <string name="language">Language</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="profile_image_description">Profile image</string>
+    <string name="input_empty">Please fill this field</string>
 
 </resources>

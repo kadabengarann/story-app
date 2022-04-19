@@ -28,7 +28,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.MaterialFadeThrough
 import com.kadabengaran.storyapp.R
-import com.kadabengaran.storyapp.view.ViewModelFactory
 import com.kadabengaran.storyapp.components.MyActionButton
 import com.kadabengaran.storyapp.databinding.FragmentPostStoryBinding
 import com.kadabengaran.storyapp.service.Result
@@ -36,6 +35,7 @@ import com.kadabengaran.storyapp.utils.createTempFile
 import com.kadabengaran.storyapp.utils.reduceFileImage
 import com.kadabengaran.storyapp.utils.uriToFile
 import com.kadabengaran.storyapp.view.PreferenceViewModel
+import com.kadabengaran.storyapp.view.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -111,6 +111,7 @@ class PostStoryFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
