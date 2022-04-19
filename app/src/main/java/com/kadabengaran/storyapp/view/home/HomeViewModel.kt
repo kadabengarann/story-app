@@ -20,11 +20,6 @@ class HomeViewModel(private val storyRepository: StoryRepository) : ViewModel() 
     private val _tokenSession = MutableLiveData<String>()
     var tokenSession: LiveData<String> = _tokenSession
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
     fun getStories() {
         viewModelScope.launch {
             tokenSession.value?.let { token ->
@@ -38,9 +33,5 @@ class HomeViewModel(private val storyRepository: StoryRepository) : ViewModel() 
 
     fun setToken(token: String) {
         _tokenSession.postValue(token)
-    }
-
-    fun getToken(): LiveData<String> {
-        return _tokenSession
     }
 }

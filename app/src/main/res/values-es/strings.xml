@@ -37,4 +37,5 @@
     <string name="dark_mode">Modo oscuro</string>
     <string name="profile_image_description">Imagen de perfil</string>
     <string name="input_empty">Por favor complete este campo</string>
+    <string name="success_upload_story">" ¡Historia publicada con éxito!"</string>
 </resources>

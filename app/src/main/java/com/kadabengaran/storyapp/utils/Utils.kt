@@ -3,11 +3,13 @@ package com.kadabengaran.storyapp.utils
 import android.app.Application
 import android.content.ContentResolver
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.kadabengaran.storyapp.R
 import java.io.*
@@ -26,9 +28,14 @@ val timeStamp: String = SimpleDateFormat(
 fun ImageView.loadImage(url: String?) {
     Glide.with(this.context)
         .load(url)
-        .onlyRetrieveFromCache(true)
         .dontTransform()
+        .placeholder(R.drawable.loading_image)
+        .error(R.drawable.error_image)
         .into(this)
+}
+
+fun hasPermissions(context: Context, permissions: Array<String>): Boolean = permissions.all {
+    ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
 }
 
 fun String.withDateFormat(): String {

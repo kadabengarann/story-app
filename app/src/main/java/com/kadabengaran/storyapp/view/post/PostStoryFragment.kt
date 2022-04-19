@@ -2,6 +2,7 @@ package com.kadabengaran.storyapp.view.post
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -32,6 +33,7 @@ import com.kadabengaran.storyapp.components.MyActionButton
 import com.kadabengaran.storyapp.databinding.FragmentPostStoryBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.utils.createTempFile
+import com.kadabengaran.storyapp.utils.hasPermissions
 import com.kadabengaran.storyapp.utils.reduceFileImage
 import com.kadabengaran.storyapp.utils.uriToFile
 import com.kadabengaran.storyapp.view.PreferenceViewModel
@@ -132,7 +134,16 @@ class PostStoryFragment : Fragment() {
     }
 
     private fun setupAction() {
-        binding.btnCamera.setOnClickListener { startTakePhoto() }
+        binding.btnCamera.setOnClickListener {
+            if (hasPermissions(activity as Context, REQUIRED_PERMISSIONS)) {
+                startTakePhoto()
+            }else{
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.permission_failed),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }}
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnUpload.setOnClickListener { uploadImage() }
         captionInput.addTextChangedListener(object : TextWatcher {
@@ -159,7 +170,7 @@ class PostStoryFragment : Fragment() {
                         showLoading(false)
                         Toast.makeText(
                             requireContext(),
-                            "Story posted successfully!",
+                            getString(R.string.success_upload_story),
                             Toast.LENGTH_SHORT
                         )
                             .show()
@@ -199,7 +210,9 @@ class PostStoryFragment : Fragment() {
     @SuppressLint("QueryPermissionsNeeded")
     private fun startTakePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        activity?.let { intent.resolveActivity(it.packageManager) }
+        activity?.let {
+            intent.resolveActivity(it.packageManager)
+        }
         createTempFile(requireContext()).also {
             val photoURI: Uri = FileProvider.getUriForFile(
                 requireContext(),

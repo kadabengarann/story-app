@@ -31,13 +31,6 @@ class UserPreference(private val context: Context) {
 
         }
     }
-
-    suspend fun login() {
-        context.dataStore.edit { preferences ->
-            preferences[STATE_KEY] = true
-        }
-    }
-
     suspend fun logout() {
         context.dataStore.edit { preferences ->
             preferences[NAME_KEY] = ""

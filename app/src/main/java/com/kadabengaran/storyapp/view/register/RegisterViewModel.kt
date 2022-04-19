@@ -14,12 +14,10 @@ class RegisterViewModel(private val storyRepository: StoryRepository) : ViewMode
 
     fun register(user: RegisterBody): LiveData<Result<String>?> {
         return storyRepository.register(user).asLiveData()
-
     }
 
     fun login(user: LoginBody): LiveData<Result<LoginResult>?> {
         return storyRepository.login(user).asLiveData()
-
     }
 
 }

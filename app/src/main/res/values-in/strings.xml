@@ -41,5 +41,6 @@
     <string name="dark_mode">Mode Gelap</string>
     <string name="profile_image_description">Profile image</string>
     <string name="input_empty">Silahkan isi kolom ini</string>
+    <string name="success_upload_story">" Cerita berhasil diposting!"</string>
 
 </resources>

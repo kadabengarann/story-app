@@ -45,5 +45,6 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="profile_image_description">Profile image</string>
     <string name="input_empty">Please fill this field</string>
+    <string name="success_upload_story">Story posted successfully!</string>
 
 </resources>
