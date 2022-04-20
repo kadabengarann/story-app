@@ -56,13 +56,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        setupViewModel()
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupViewModel()
         observeData()
         binding.rvStories.apply {
             layoutManager = LinearLayoutManager(context)
@@ -141,7 +140,7 @@ class HomeFragment : Fragment() {
         storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: StoryItem, cardItem: CardView) {
                 val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra("Story", data)
+                intent.putExtra(DetailActivity.EXTRA_STORY, data)
 
                 val optionsCompat: ActivityOptionsCompat =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(

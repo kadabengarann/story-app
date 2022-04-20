@@ -20,7 +20,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.title_detail_story)
 
 
-        val dataStory = intent.getParcelableExtra<StoryItem>("Story") as StoryItem
+        val dataStory = intent.getParcelableExtra<StoryItem>(EXTRA_STORY) as StoryItem
 
         binding.apply {
             tvUsername.text = dataStory.name
@@ -37,5 +37,9 @@ class DetailActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object{
+        const val EXTRA_STORY = "extra_object"
     }
 }

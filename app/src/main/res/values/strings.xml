@@ -46,5 +46,6 @@
     <string name="profile_image_description">Profile image</string>
     <string name="input_empty">Please fill this field</string>
     <string name="success_upload_story">Story posted successfully!</string>
+    <string name="avatar_description">user avatar</string>
 
 </resources>
