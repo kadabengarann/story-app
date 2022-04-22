@@ -1,12 +1,15 @@
 package com.kadabengaran.storyapp.service.di
 
-import com.kadabengaran.storyapp.service.StoryRepository
+import android.content.Context
+import com.kadabengaran.storyapp.service.data.StoryRepository
+import com.kadabengaran.storyapp.service.database.StoryDatabase
 import com.kadabengaran.storyapp.service.remote.ApiConfig
 
 
 object Injection {
-    fun provideRepository(): StoryRepository {
+    fun provideRepository(context: Context): StoryRepository {
         val apiService = ApiConfig.getApiService()
-        return StoryRepository.getInstance(apiService)
+        val storyDatabase = StoryDatabase.getDatabase(context)
+        return StoryRepository.getInstance(storyDatabase,apiService)
     }
 }

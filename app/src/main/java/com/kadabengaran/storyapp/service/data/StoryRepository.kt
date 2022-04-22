@@ -1,6 +1,11 @@
-package com.kadabengaran.storyapp.service
+package com.kadabengaran.storyapp.service.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.paging.*
+import com.kadabengaran.storyapp.service.Result
+import com.kadabengaran.storyapp.service.database.StoryDatabase
+import com.kadabengaran.storyapp.service.database.StoryEntity
 import com.kadabengaran.storyapp.service.model.*
 import com.kadabengaran.storyapp.service.remote.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -11,6 +16,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class StoryRepository private constructor(
+    private val storyDatabase: StoryDatabase,
     private val apiService: ApiService,
 ) {
     fun register(register: RegisterBody): Flow<Result<String>?> {
@@ -26,6 +32,11 @@ class StoryRepository private constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun refresh(){
+        storyDatabase.storyDao().deleteAll()
+        storyDatabase.remoteKeysDao().deleteRemoteKeys()
+
+    }
     fun login(login: LoginBody): Flow<Result<LoginResult>?> {
         return flow {
             emit(Result.Loading)
@@ -39,19 +50,18 @@ class StoryRepository private constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun fetchStoryList(token: String): Flow<Result<List<StoryItem>>?> {
-        return flow {
-            emit(Result.Loading)
-            try {
-                val result = apiService.getStoryList("Bearer $token").listStory
-                emit(Result.Success(result))
-            } catch (e: Exception) {
-                Log.d("StoryRepository", "fetchStoryList: ${e.message.toString()} ")
-                emit(Result.Error(e.message.toString()))
+    fun getStories(token: String): LiveData<PagingData<StoryEntity>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            remoteMediator = StoryRemoteMediator(token,storyDatabase, apiService),
+            pagingSourceFactory = {
+                storyDatabase.storyDao().getAllStories()
             }
-        }.flowOn(Dispatchers.IO)
+        ).liveData
     }
-
     suspend fun postStory(
         token: String,
         file: MultipartBody.Part,
@@ -73,10 +83,11 @@ class StoryRepository private constructor(
         @Volatile
         private var instance: StoryRepository? = null
         fun getInstance(
+            storyDatabase: StoryDatabase,
             apiService: ApiService,
         ): StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService)
+                instance ?: StoryRepository(storyDatabase, apiService)
             }.also { instance = it }
     }
 }

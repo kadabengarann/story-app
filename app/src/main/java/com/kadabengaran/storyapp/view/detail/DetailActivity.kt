@@ -5,6 +5,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.ActivityDetailBinding
+import com.kadabengaran.storyapp.service.database.StoryEntity
 import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.utils.loadImage
 import com.kadabengaran.storyapp.utils.withDateFormat
@@ -20,7 +21,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.title_detail_story)
 
 
-        val dataStory = intent.getParcelableExtra<StoryItem>(EXTRA_STORY) as StoryItem
+        val dataStory = intent.getParcelableExtra<StoryEntity>(EXTRA_STORY) as StoryEntity
 
         binding.apply {
             tvUsername.text = dataStory.name

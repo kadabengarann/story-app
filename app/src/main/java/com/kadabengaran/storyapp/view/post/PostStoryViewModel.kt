@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kadabengaran.storyapp.service.Result
-import com.kadabengaran.storyapp.service.StoryRepository
+import com.kadabengaran.storyapp.service.data.StoryRepository
 import com.kadabengaran.storyapp.service.model.FileUploadResponse
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

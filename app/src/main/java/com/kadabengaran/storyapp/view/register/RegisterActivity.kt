@@ -28,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var user: RegisterBody
     private val factory by lazy {
-        ViewModelFactory.getInstance()
+        ViewModelFactory.getInstance(this)
     }
     private val registerViewModel: RegisterViewModel by viewModels {
         factory

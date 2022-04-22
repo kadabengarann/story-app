@@ -46,12 +46,15 @@
 
         <TextView
             android:id="@+id/tv_username"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textColor="?attr/textColorPrimary"
             android:textStyle="bold"
             card_view:layout_constraintBottom_toTopOf="@+id/guideline3"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_avatar"
             card_view:layout_constraintTop_toTopOf="@+id/img_item_avatar"
             tools:text="@string/lorem" />

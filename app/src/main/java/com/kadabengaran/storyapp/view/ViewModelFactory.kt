@@ -1,8 +1,9 @@
 package com.kadabengaran.storyapp.view
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.kadabengaran.storyapp.service.StoryRepository
+import com.kadabengaran.storyapp.service.data.StoryRepository
 import com.kadabengaran.storyapp.service.di.Injection
 import com.kadabengaran.storyapp.view.home.HomeViewModel
 import com.kadabengaran.storyapp.view.login.LoginViewModel
@@ -24,9 +25,9 @@ class ViewModelFactory(private val storyRepository: StoryRepository) :
     companion object {
         @Volatile
         private var instance: ViewModelFactory? = null
-        fun getInstance(): ViewModelFactory =
+        fun getInstance(context:Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository())
+                instance ?: ViewModelFactory(Injection.provideRepository(context))
             }.also { instance = it }
     }
 }

@@ -11,13 +11,18 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.distinctUntilChanged
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
 import com.kadabengaran.storyapp.databinding.FragmentHomeBinding
 import com.kadabengaran.storyapp.service.Result
+import com.kadabengaran.storyapp.service.database.StoryEntity
 import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.view.ListStoryAdapter
 import com.kadabengaran.storyapp.view.PreferenceViewModel
@@ -29,21 +34,19 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private lateinit var preferenceViewModel: PreferenceViewModel
 
+    private val binding get() = _binding!!
+
     private val factory by lazy {
-        ViewModelFactory.getInstance()
+        ViewModelFactory.getInstance(requireContext())
     }
     private val homeViewModel: HomeViewModel by viewModels {
         factory
     }
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
     private val storyAdapter: ListStoryAdapter by lazy {
-        ListStoryAdapter(
-            mutableListOf()
-        )
+        ListStoryAdapter()
     }
+
+    private var reFetch = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,17 +64,21 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        reFetch = HomeFragmentArgs.fromBundle(arguments as Bundle).reFetch
         setupViewModel()
-        observeData()
         binding.rvStories.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = storyAdapter
         }
+        observeData()
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("TOTTTTTTT", "setupViewModel: SI DESTROYYY")
+
         _binding = null
     }
 
@@ -80,20 +87,44 @@ class HomeFragment : Fragment() {
         preferenceViewModel.getUser().observe(viewLifecycleOwner) { user ->
             homeViewModel.setToken(user.token)
         }
-        if (!homeViewModel.fetched) {
-            homeViewModel.tokenSession.observe(viewLifecycleOwner) {
-                if (!it.isNullOrEmpty())
-                    homeViewModel.getStories()
-            }
-
+        if (reFetch){
+            homeViewModel.refresh()
         }
-        Log.d(TAG, "setupViewModel: ${homeViewModel.fetched}")
+        homeViewModel.tokenSession.observe(viewLifecycleOwner) {
+                if (!it.isNullOrEmpty()) {
+                    homeViewModel.getStories().distinctUntilChanged().observe(viewLifecycleOwner){
+                        Log.d("TAGAGAGAG", "setupViewModel: GETSTORYYYYYY")
+                        storyAdapter.submitData(lifecycle, it)
+                        binding.rvStories.visibility = View.VISIBLE
+                    }
+                }
+        }
+        binding.rvStories.scrollToPosition(0)
+        showLoading(true)
     }
 
     private fun observeData() {
-        homeViewModel.listStory.observe(viewLifecycleOwner) {
-            processData(it)
+        storyAdapter.addLoadStateListener { loadState ->
+            Log.d("TAGAAA", "observeData loadstatetete: ${loadState.source.refresh }")
+            showLoading(loadState.source.refresh is LoadState.Loading)
+            binding.grError.isVisible = loadState.source.refresh is LoadState.Error
+
+            showError(loadState)
         }
+        storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: StoryEntity, cardItem: CardView) {
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_STORY, data)
+
+                val optionsCompat: ActivityOptionsCompat =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        requireContext() as Activity,
+                        Pair(cardItem, "parentCard")
+                    )
+                requireContext().startActivity(intent, optionsCompat.toBundle())
+                Log.d(TAG, "setStories: Cliked data $data")
+            }
+        })
     }
 
     private fun processData(result: Result<List<StoryItem>>) {
@@ -109,18 +140,19 @@ class HomeFragment : Fragment() {
                 }
                 is Result.Error -> {
                     showLoading(false)
-                    showError(result.error)
+//                    showError(result.error)
                 }
             }
         }
     }
 
-    private fun showError(error: String) {
-        binding.grError.visibility = View.VISIBLE
-        binding.tvError.text = error
+    private fun showError(error: CombinedLoadStates) {
+       /* error.let {
+            binding.tvError.text = it.error
+        }*/
         binding.btnError.setOnClickListener {
             binding.grError.visibility = View.GONE
-            homeViewModel.getStories()
+            storyAdapter.retry()
         }
         Log.d(TAG, "showError: $error")
 
@@ -135,10 +167,10 @@ class HomeFragment : Fragment() {
             listUser.add(user)
         }
         binding.rvStories.visibility = View.VISIBLE
-        storyAdapter.setData(storyList)
+//        storyAdapter.setData(storyList)
 
         storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryItem, cardItem: CardView) {
+            override fun onItemClicked(data: StoryEntity, cardItem: CardView) {
                 val intent = Intent(requireContext(), DetailActivity::class.java)
                 intent.putExtra(DetailActivity.EXTRA_STORY, data)
 

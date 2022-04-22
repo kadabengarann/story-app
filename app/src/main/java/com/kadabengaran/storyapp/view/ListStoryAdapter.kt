@@ -3,24 +3,21 @@ package com.kadabengaran.storyapp.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.ItemStoriesBinding
+import com.kadabengaran.storyapp.service.database.StoryEntity
 import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.utils.withDateFormat
 
-class ListStoryAdapter(
-    private val data: MutableList<StoryItem>
-) : RecyclerView.Adapter<ListStoryAdapter.ViewHolder>() {
+class ListStoryAdapter:
+
+    PagingDataAdapter<StoryEntity, ListStoryAdapter.ViewHolder>(DIFF_CALLBACK){
 
     private lateinit var onItemClickCallback: OnItemClickCallback
-
-    fun setData(items: List<StoryItem>) {
-        data.clear()
-        data.addAll(items)
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,15 +25,16 @@ class ListStoryAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        val data = getItem(position)
+        if (data != null) {
+            holder.bind(data)
+        }
     }
-
-    override fun getItemCount(): Int = data.size
 
     inner class ViewHolder(private val binding: ItemStoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(userItem: StoryItem) {
+        fun bind(userItem: StoryEntity) {
             with(binding) {
                 Glide.with(itemView)
                     .load(userItem.photoUrl)
@@ -57,10 +55,22 @@ class ListStoryAdapter(
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: StoryItem, cardItem: CardView)
+        fun onItemClicked(data: StoryEntity, cardItem: CardView)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<StoryEntity>() {
+            override fun areItemsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: StoryEntity, newItem: StoryEntity): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
     }
 }

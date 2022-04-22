@@ -52,7 +52,7 @@ class PostStoryFragment : Fragment() {
     private lateinit var preferenceViewModel: PreferenceViewModel
 
     private val factory by lazy {
-        ViewModelFactory.getInstance()
+        ViewModelFactory.getInstance(requireContext())
     }
     private val postStoryViewModel: PostStoryViewModel by viewModels {
         factory
@@ -267,7 +267,9 @@ class PostStoryFragment : Fragment() {
                 .findDestination(R.id.navigation_home)
 
         if (destinationPost && !destinationHome) {
-            view?.findNavController()?.navigate(R.id.action_postStoryFragment_to_navigation_home)
+            val toDetailHomeFragment = PostStoryFragmentDirections.actionPostStoryFragmentToNavigationHome()
+            toDetailHomeFragment.reFetch = true
+            view?.findNavController()?.navigate(toDetailHomeFragment)
         }
     }
 
