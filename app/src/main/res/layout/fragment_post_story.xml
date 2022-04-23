@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/colorPrimaryVariant2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/colorPrimaryVariant2"
     tools:context=".view.post.PostStoryFragment">
+
+    <CheckBox
+        android:id="@+id/cb_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/share_current_location"
+        android:textColor="?attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/inp_description"
+        app:layout_constraintStart_toStartOf="@+id/inp_description"
+        app:layout_constraintTop_toBottomOf="@+id/inp_description" />
 
     <EditText
         android:id="@+id/inp_description"
@@ -46,7 +61,7 @@
         android:text="@string/upload_image_from"
         app:layout_constraintEnd_toEndOf="@+id/inp_description"
         app:layout_constraintStart_toStartOf="@+id/inp_description"
-        app:layout_constraintTop_toBottomOf="@+id/inp_description" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_location" />
 
     <TextView
         android:id="@+id/tv_separator2"
@@ -128,8 +143,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="@string/upload"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_gallery"
         app:layout_constraintStart_toStartOf="@+id/btn_camera"
         app:layout_constraintTop_toBottomOf="@+id/btn_camera"
@@ -138,4 +155,6 @@
     <include
         android:id="@+id/inc_progress"
         layout="@layout/progress_overlay" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

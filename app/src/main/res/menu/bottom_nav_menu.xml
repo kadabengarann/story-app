@@ -7,6 +7,11 @@
         android:title="@string/title_home" />
 
     <item
+        android:id="@+id/navigation_storyMap"
+        android:icon="@drawable/ic_baseline_explore_24"
+        android:title="@string/gallery" />
+
+    <item
         android:id="@+id/navigation_postStory"
         android:icon="@drawable/ic_add_box"
         android:title="@string/title_post_story" />

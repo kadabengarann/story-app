@@ -24,6 +24,10 @@ data class StoryItem(
     val photoUrl: String,
     @field:SerializedName("createdAt")
     val createdAt: String,
+    @field:SerializedName("lat")
+    val lat: Double,
+    @field:SerializedName("lon")
+    val lon: Double,
 ) : Parcelable
 
 class ResponseLogin(

@@ -27,10 +27,19 @@ class PostStoryViewModel(private val storyRepository: StoryRepository) : ViewMod
         return _tokenSession.postValue(s)
     }
 
+    fun postStory(file: MultipartBody.Part, description: RequestBody, lat: RequestBody?, lon: RequestBody?) {
+        viewModelScope.launch {
+            getToken().value?.let { token ->
+                storyRepository.postStory(token, file, description, lat, lon).collect {
+                    _uploadResult.postValue(it)
+                }
+            }
+        }
+    }
     fun postStory(file: MultipartBody.Part, description: RequestBody) {
         viewModelScope.launch {
             getToken().value?.let { token ->
-                storyRepository.postStory(token, file, description).collect {
+                storyRepository.postStory(token, file, description, null, null).collect {
                     _uploadResult.postValue(it)
                 }
             }

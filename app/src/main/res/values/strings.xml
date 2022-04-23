@@ -47,5 +47,7 @@
     <string name="input_empty">Please fill this field</string>
     <string name="success_upload_story">Story posted successfully!</string>
     <string name="avatar_description">user avatar</string>
+    <string name="location_success">Successfully get location</string>
+    <string name="share_current_location">Share current location?</string>
 
 </resources>

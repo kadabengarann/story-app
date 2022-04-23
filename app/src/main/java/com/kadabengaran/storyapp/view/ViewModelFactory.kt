@@ -7,6 +7,7 @@ import com.kadabengaran.storyapp.service.data.StoryRepository
 import com.kadabengaran.storyapp.service.di.Injection
 import com.kadabengaran.storyapp.view.home.HomeViewModel
 import com.kadabengaran.storyapp.view.login.LoginViewModel
+import com.kadabengaran.storyapp.view.mapStory.StoryMapViewModel
 import com.kadabengaran.storyapp.view.post.PostStoryViewModel
 import com.kadabengaran.storyapp.view.register.RegisterViewModel
 
@@ -18,6 +19,7 @@ class ViewModelFactory(private val storyRepository: StoryRepository) :
         RegisterViewModel::class.java -> RegisterViewModel(storyRepository)
         LoginViewModel::class.java -> LoginViewModel(storyRepository)
         HomeViewModel::class.java -> HomeViewModel(storyRepository)
+        StoryMapViewModel::class.java -> StoryMapViewModel(storyRepository)
         PostStoryViewModel::class.java -> PostStoryViewModel(storyRepository)
         else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     } as T

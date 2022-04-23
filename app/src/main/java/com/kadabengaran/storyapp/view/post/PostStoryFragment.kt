@@ -2,18 +2,21 @@ package com.kadabengaran.storyapp.view.post
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -27,13 +30,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.components.MyActionButton
 import com.kadabengaran.storyapp.databinding.FragmentPostStoryBinding
 import com.kadabengaran.storyapp.service.Result
+import com.kadabengaran.storyapp.service.model.StoryLocation
 import com.kadabengaran.storyapp.utils.createTempFile
-import com.kadabengaran.storyapp.utils.hasPermissions
 import com.kadabengaran.storyapp.utils.reduceFileImage
 import com.kadabengaran.storyapp.utils.uriToFile
 import com.kadabengaran.storyapp.view.PreferenceViewModel
@@ -51,34 +57,46 @@ class PostStoryFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var preferenceViewModel: PreferenceViewModel
 
+    private lateinit var storyLocation: StoryLocation
+
     private val factory by lazy {
         ViewModelFactory.getInstance(requireContext())
     }
     private val postStoryViewModel: PostStoryViewModel by viewModels {
         factory
     }
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var currentPhotoPath: String
     private var getFile: File? = null
     private lateinit var captionInput: EditText
     private lateinit var uploadBtn: MyActionButton
+    private lateinit var cbLocation: CheckBox
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (!allPermissionsGranted()) Toast.makeText(
-                requireContext(),
-                getString(R.string.permission_failed),
-                Toast.LENGTH_SHORT
-            ).show()
+    private val requestPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+        val granted = permissions.entries.all {
+            it.value
+        }
+        val isCamera = permissions.entries.all {
+            it.key == Manifest.permission.CAMERA
+        }
+        if (granted) {
+            // if location action
+            // if camera action
+            if (isCamera) startTakePhoto() else getMyLastLocation()
+        }else{
+            // if camera action
+            if (isCamera) startTakePhoto() else{ // if location action
+                storyLocation = StoryLocation(
+                    null,
+                    null
+                )
+                binding.cbLocation.isChecked = false
+            }
+            showError(getString(R.string.permission_failed))
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enterTransition = MaterialFadeThrough()
@@ -90,6 +108,9 @@ class PostStoryFragment : Fragment() {
                 REQUEST_CODE_PERMISSIONS
             )
         }
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
     }
 
     override fun onCreateView(
@@ -107,11 +128,19 @@ class PostStoryFragment : Fragment() {
         setupView()
         setupAction()
         observeView()
+
+        Log.d(TAG, "onViewCreated: ${null.toString()}")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private fun checkPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
@@ -130,19 +159,23 @@ class PostStoryFragment : Fragment() {
     private fun setupView() {
         captionInput = binding.inpDescription
         uploadBtn = binding.btnUpload
+        cbLocation = binding.cbLocation
         setUploadEnable()
     }
 
     private fun setupAction() {
+        cbLocation.setOnCheckedChangeListener{ _, isCheck ->
+            if(isCheck){
+                getMyLastLocation()
+            }
+        }
         binding.btnCamera.setOnClickListener {
-            if (hasPermissions(activity as Context, REQUIRED_PERMISSIONS)) {
+            if (checkPermission(Manifest.permission.CAMERA)) {
                 startTakePhoto()
             }else{
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.permission_failed),
-                    Toast.LENGTH_SHORT
-                ).show()
+                requestPermissionLauncher.launch(
+                    CAMERA_PERMISSIONS
+                )
             }}
         binding.btnGallery.setOnClickListener { startGallery() }
         binding.btnUpload.setOnClickListener { uploadImage() }
@@ -183,6 +216,42 @@ class PostStoryFragment : Fragment() {
                     }
                 }
             }
+        }
+    }
+
+    private fun getMyLastLocation() {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
+            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+        ){
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    storyLocation = StoryLocation(
+                        location.latitude,
+                        location.longitude
+                    )
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.location_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.d(TAG, "getMyLastLocation: lat ${location.latitude} long   ${location.longitude}")
+                }else{
+                    storyLocation = StoryLocation(
+                        null,
+                        null
+                    )
+                    val snack = Snackbar.make(binding.root, "Failed to get location", Snackbar.LENGTH_SHORT)
+                    snack.setAction(getString(R.string.btn_retry_string)) {
+                        getMyLastLocation()
+                    }
+                    snack.show()
+                    cbLocation.isChecked = false
+                }
+            }
+        } else {
+            requestPermissionLauncher.launch(
+                LOCATION_PERMISSIONS
+            )
         }
     }
 
@@ -240,7 +309,6 @@ class PostStoryFragment : Fragment() {
     private fun uploadImage() {
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
-
             val description = captionInput.text.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -248,7 +316,15 @@ class PostStoryFragment : Fragment() {
                 file.name,
                 requestImageFile
             )
-            postStoryViewModel.postStory(imageMultipart, description)
+            if (storyLocation.lat != null && storyLocation.lon != null){
+                val lat = storyLocation.lat.toString().toRequestBody("text/plain".toMediaType())
+                val lon = storyLocation.lon.toString().toRequestBody("text/plain".toMediaType())
+                postStoryViewModel.postStory(imageMultipart, description, lat, lon)
+
+            }else{
+                postStoryViewModel.postStory(imageMultipart, description)
+            }
+
         } else {
             Toast.makeText(
                 requireContext(),
@@ -295,7 +371,18 @@ class PostStoryFragment : Fragment() {
     }
 
     companion object {
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private val REQUIRED_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.CAMERA)
+
+        private val CAMERA_PERMISSIONS = arrayOf(
+            Manifest.permission.CAMERA)
+
+        private val LOCATION_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION)
+
         private const val REQUEST_CODE_PERMISSIONS = 10
     }
 

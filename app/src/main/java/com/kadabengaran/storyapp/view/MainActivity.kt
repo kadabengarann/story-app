@@ -36,12 +36,13 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_postStory -> showBottomNav(false)
+                R.id.navigation_storyMap -> showBottomNav(false)
                 else -> showBottomNav(true)
             }
         }
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_postStory, R.id.navigation_profile
+                R.id.navigation_home, R.id.navigation_storyMap, R.id.navigation_postStory, R.id.navigation_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -56,5 +56,10 @@
         android:name="com.kadabengaran.storyapp.view.profile.SettingDialogFragment"
         android:label="fragment_setting_dialog"
         tools:layout="@layout/fragment_setting_dialog" />
+    <fragment
+        android:id="@+id/navigation_storyMap"
+        android:name="com.kadabengaran.storyapp.view.mapStory.StoryMapsFragment"
+        android:label="Explore"
+        tools:layout="@layout/fragment_story_maps" />
 
 </navigation>

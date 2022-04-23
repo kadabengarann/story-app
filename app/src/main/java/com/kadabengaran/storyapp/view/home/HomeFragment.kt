@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
         }
         homeViewModel.tokenSession.observe(viewLifecycleOwner) {
                 if (!it.isNullOrEmpty()) {
-                    homeViewModel.getStories().distinctUntilChanged().observe(viewLifecycleOwner){
+                    homeViewModel.getStories().observe(viewLifecycleOwner){
                         Log.d("TAGAGAGAG", "setupViewModel: GETSTORYYYYYY")
                         storyAdapter.submitData(lifecycle, it)
                         binding.rvStories.visibility = View.VISIBLE
@@ -127,25 +127,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun processData(result: Result<List<StoryItem>>) {
-        if (result != null) {
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-                is Result.Success -> {
-                    showLoading(false)
-                    val storyList = result.data
-                    setStories(storyList)
-                }
-                is Result.Error -> {
-                    showLoading(false)
-//                    showError(result.error)
-                }
-            }
-        }
-    }
-
     private fun showError(error: CombinedLoadStates) {
        /* error.let {
             binding.tvError.text = it.error
@@ -154,39 +135,8 @@ class HomeFragment : Fragment() {
             binding.grError.visibility = View.GONE
             storyAdapter.retry()
         }
-        Log.d(TAG, "showError: $error")
-
     }
-
-    private fun setStories(storyList: List<StoryItem>) {
-        if (storyList.isEmpty()) {
-            Log.d(TAG, "setStories : NO DATA")
-        }
-        val listUser = ArrayList<StoryItem>()
-        for (user in storyList) {
-            listUser.add(user)
-        }
-        binding.rvStories.visibility = View.VISIBLE
-//        storyAdapter.setData(storyList)
-
-        storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryEntity, cardItem: CardView) {
-                val intent = Intent(requireContext(), DetailActivity::class.java)
-                intent.putExtra(DetailActivity.EXTRA_STORY, data)
-
-                val optionsCompat: ActivityOptionsCompat =
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        requireContext() as Activity,
-                        Pair(cardItem, "parentCard")
-                    )
-                requireContext().startActivity(intent, optionsCompat.toBundle())
-                Log.d(TAG, "setStories: Cliked data $data")
-            }
-        })
-    }
-
     private fun showLoading(b: Boolean) {
-        Log.d(TAG, "setStories: LOADING.....")
         binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE
     }
 }

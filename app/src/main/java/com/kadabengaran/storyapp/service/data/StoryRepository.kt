@@ -62,15 +62,29 @@ class StoryRepository private constructor(
             }
         ).liveData
     }
+    suspend fun fetchStoryLocation(token: String): Flow<Result<List<StoryItem>>> {
+        return flow {
+            emit(Result.Loading)
+            try {
+                val result = apiService.getStories("Bearer $token",1,30,1).listStory
+                emit(Result.Success(result))
+            } catch (e: Exception) {
+                Log.d("StoryRepository", "fetchStoryList: ${e.message.toString()} ")
+                emit(Result.Error(e.message.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
     suspend fun postStory(
         token: String,
         file: MultipartBody.Part,
-        description: RequestBody
+        description: RequestBody,
+        lat: RequestBody?,
+        lon: RequestBody?
     ): Flow<Result<FileUploadResponse>> {
         return flow {
             emit(Result.Loading)
             try {
-                val result = apiService.uploadImage("Bearer $token", file, description)
+                val result = apiService.uploadImage("Bearer $token", file, description, lat, lon)
                 emit(Result.Success(result))
             } catch (e: Exception) {
                 Log.d("StoryRepository", "UploadStory: ${e.message.toString()} ")
