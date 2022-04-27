@@ -6,15 +6,12 @@ import com.kadabengaran.storyapp.MainCoroutineRule
 import com.kadabengaran.storyapp.getOrAwaitValue
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.data.StoryRepository
-import com.kadabengaran.storyapp.service.model.LoginBody
-import com.kadabengaran.storyapp.view.login.LoginViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runBlockingTest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.junit.Assert
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

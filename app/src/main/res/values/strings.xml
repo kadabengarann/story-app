@@ -9,17 +9,12 @@
 
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="message_login_page">Please login to continue</string>
-    <string name="title_login_page">Login</string>
     <string name="name">Name</string>
     <string name="logout">Log Out</string>
-    <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="title_home">Home</string>
     <string name="title_post_story">Add Story</string>
     <string name="title_detail_story">Story</string>
 
-    <string name="camera">Camera</string>
-    <string name="gallery">Gallery</string>
     <string name="upload">Upload</string>
 
     <string name="title_profile">Profile</string>
@@ -30,7 +25,6 @@
     <string name="illustration_desc">An illustration</string>
     <string name="new_to_app">New to StoryApp?</string>
     <string name="not_new_to_app">Have an account?</string>
-    <string name="name_empty">Enter name</string>
     <string name="email_empty">Enter email</string>
     <string name="email_invalid">Wrong email format</string>
     <string name="password_empty">Enter password</string>

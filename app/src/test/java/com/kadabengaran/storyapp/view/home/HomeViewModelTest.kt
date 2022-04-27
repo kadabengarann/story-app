@@ -15,7 +15,8 @@ import com.kadabengaran.storyapp.service.database.StoryEntity
 import com.kadabengaran.storyapp.view.adapter.ListStoryAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

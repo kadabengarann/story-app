@@ -5,15 +5,11 @@
     <string name="dateFormat">Subido el %1$s</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Clave</string>
-    <string name="message_login_page">Por favor inicie sesión para continuar</string>
-    <string name="title_login_page">Acceso</string>
     <string name="name">Nombre</string>
     <string name="logout">Cerrar sesión</string>
     <string name="title_home">Casa</string>
     <string name="title_post_story">Agregar historia</string>
     <string name="title_detail_story">Historia</string>
-    <string name="camera">Cámara</string>
-    <string name="gallery">Galería</string>
     <string name="upload">Subir</string>
     <string name="title_profile">Perfil</string>
     <string name="setting">Entorno</string>
@@ -22,7 +18,6 @@
     <string name="illustration_desc">Una ilustración</string>
     <string name="new_to_app">¿Nuevo en StoryApp?</string>
     <string name="not_new_to_app">¿Tener una cuenta?</string>
-    <string name="name_empty">Ingrese su nombre</string>
     <string name="email_empty">Ingrese correo electrónico</string>
     <string name="email_invalid">Formato de correo electrónico incorrecto</string>
     <string name="password_empty">Introducir la contraseña</string>
