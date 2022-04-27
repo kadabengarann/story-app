@@ -42,5 +42,17 @@
     <string name="profile_image_description">Profile image</string>
     <string name="input_empty">Silahkan isi kolom ini</string>
     <string name="success_upload_story">" Cerita berhasil diposting!"</string>
+    <string name="avatar_description">avatar pengguna</string>
+    <string name="location_success">Berhasil mendapatkan lokasi</string>
+    <string name="share_current_location">Bagikan lokasi saat ini?</string>
+    <string name="explore">Jelajah</string>
+    <string name="login_process">Proses masuk…</string>
+    <string name="login_success">login berhasil</string>
+    <string name="getting_current_location">Mendapatkan lokasi saat ini…</string>
+    <string name="get_location_failed">Gagal mendapatkan lokasi</string>
+    <string name="gps_disabled">GPS tidak diaktifkan</string>
+    <string name="please_enable_gps">Harap aktifkan GPS!</string>
+    <string name="choose_picture">Pilih Gambar</string>
+    <string name="story">Cerita</string>
 
 </resources>

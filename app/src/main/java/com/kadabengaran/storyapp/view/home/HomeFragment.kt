@@ -1,10 +1,8 @@
 package com.kadabengaran.storyapp.view.home
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +13,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialFadeThrough
 import com.kadabengaran.storyapp.databinding.FragmentHomeBinding
 import com.kadabengaran.storyapp.service.database.StoryEntity
-import com.kadabengaran.storyapp.view.ListStoryAdapter
 import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.ViewModelFactory
+import com.kadabengaran.storyapp.view.adapter.ListStoryAdapter
+import com.kadabengaran.storyapp.view.adapter.LoadingStateAdapter
 import com.kadabengaran.storyapp.view.detail.DetailActivity
 
 class HomeFragment : Fragment() {
@@ -66,7 +64,11 @@ class HomeFragment : Fragment() {
         binding.rvStories.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            adapter = storyAdapter
+            adapter = storyAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter{
+                    storyAdapter.retry()
+                }
+            )
         }
         observeData()
 
@@ -74,8 +76,6 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("TOTTTTTTT", "setupViewModel: SI DESTROYYY")
-
         _binding = null
         arguments?.clear()
     }
@@ -87,7 +87,6 @@ class HomeFragment : Fragment() {
             reFetch = false
         }
             homeViewModel.getStories().observe(viewLifecycleOwner){
-                Log.d("TAGAGAGAG", "setupViewModel: GETSTORYYYYYY")
                 storyAdapter.submitData(lifecycle, it)
                 binding.rvStories.visibility = View.VISIBLE
             }
@@ -98,11 +97,10 @@ class HomeFragment : Fragment() {
 
     private fun observeData() {
         storyAdapter.addLoadStateListener { loadState ->
-            Log.d("TAGAAA", "observeData loadstatetete: ${loadState.source.refresh }")
             showLoading(loadState.source.refresh is LoadState.Loading)
             binding.grError.isVisible = loadState.source.refresh is LoadState.Error
 
-            showError(loadState)
+            showError()
         }
         storyAdapter.setOnItemClickCallback(object : ListStoryAdapter.OnItemClickCallback {
             override fun onItemClicked(data: StoryEntity, cardItem: CardView) {
@@ -115,15 +113,11 @@ class HomeFragment : Fragment() {
                         Pair(cardItem, "parentCard")
                     )
                 requireContext().startActivity(intent, optionsCompat.toBundle())
-                Log.d(TAG, "setStories: Cliked data $data")
             }
         })
     }
 
-    private fun showError(error: CombinedLoadStates) {
-       /* error.let {
-            binding.tvError.text = it.error
-        }*/
+    private fun showError() {
         binding.btnError.setOnClickListener {
             binding.grError.visibility = View.GONE
             storyAdapter.retry()

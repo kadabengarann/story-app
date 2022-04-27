@@ -12,7 +12,7 @@ import com.kadabengaran.storyapp.DummyDatas
 import com.kadabengaran.storyapp.MainCoroutineRule
 import com.kadabengaran.storyapp.getOrAwaitValue
 import com.kadabengaran.storyapp.service.database.StoryEntity
-import com.kadabengaran.storyapp.view.ListStoryAdapter
+import com.kadabengaran.storyapp.view.adapter.ListStoryAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*

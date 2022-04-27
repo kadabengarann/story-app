@@ -38,4 +38,16 @@
     <string name="profile_image_description">Imagen de perfil</string>
     <string name="input_empty">Por favor complete este campo</string>
     <string name="success_upload_story">" ¡Historia publicada con éxito!"</string>
+    <string name="location_success">Obtener ubicación con éxito</string>
+    <string name="avatar_description">avatar de usuario</string>
+    <string name="share_current_location">¿Compartir ubicación actual?</string>
+    <string name="explore">Explorar</string>
+    <string name="login_process">Proceso de inicio de sesión…</string>
+    <string name="login_success">Inicio de sesión exitoso</string>
+    <string name="getting_current_location">Obtener la ubicación actual…</string>
+    <string name="gps_disabled">GPS no está habilitado</string>
+    <string name="get_location_failed">No se pudo obtener la ubicación</string>
+    <string name="please_enable_gps">¡Habilite el GPS!</string>
+    <string name="choose_picture">Elige una imagen</string>
+    <string name="story">Historia</string>
 </resources>

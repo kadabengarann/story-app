@@ -57,5 +57,6 @@
     <string name="gps_disabled">GPS is not enabled</string>
     <string name="please_enable_gps">Please enable GPS!</string>
     <string name="choose_picture">Choose a Picture</string>
+    <string name="story">Story</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.kadabengaran.storyapp.view
+package com.kadabengaran.storyapp.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.ItemStoriesBinding
 import com.kadabengaran.storyapp.service.database.StoryEntity
-import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.utils.withDateFormat
 
 class ListStoryAdapter:
