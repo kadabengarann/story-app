@@ -23,7 +23,7 @@ object DummyDatas {
     }
 
     fun generateDummyStories(): List<StoryItem> {
-        val newsList = ArrayList<StoryItem>()
+        val storiesList = ArrayList<StoryItem>()
         for (i in 0..10) {
             val story = StoryItem(
                 "story_id_$i",
@@ -34,9 +34,9 @@ object DummyDatas {
                 .69,
                 .69,
             )
-            newsList.add(story)
+            storiesList.add(story)
         }
-        return newsList
+        return storiesList
     }
 
     fun generateDummyStoryResponse(): ResponseStory {
