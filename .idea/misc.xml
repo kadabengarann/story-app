@@ -46,18 +46,19 @@
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/menu/profile_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_1/StoryApp/app/src/main/res/xml/file_paths.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/drawable/ic_person_pin_circle.xml" value="0.1265" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/activity_detail.xml" value="0.5809352517985612" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/activity_detail.xml" value="0.4" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/activity_login.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/error_overlay.xml" value="0.264" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/fragment_home.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/fragment_post_story.xml" value="0.264" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/fragment_story_maps.xml" value="0.16799999999999998" />
-        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/item_stories.xml" value="0.481371087928465" />
+        <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/item_stories.xml" value="0.6" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/layout/progress_overlay.xml" value="0.11302083333333333" />
         <entry key="..\:/College/Bang/Learn/Inter/Sub/Sub_2/story-app/app/src/main/res/menu/bottom_nav_menu.xml" value="0.11302083333333333" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
