@@ -12,9 +12,9 @@ import com.kadabengaran.storyapp.databinding.ItemStoriesBinding
 import com.kadabengaran.storyapp.service.database.StoryEntity
 import com.kadabengaran.storyapp.utils.withDateFormat
 
-class ListStoryAdapter:
+class ListStoryAdapter :
 
-    PagingDataAdapter<StoryEntity, ListStoryAdapter.ViewHolder>(DIFF_CALLBACK){
+    PagingDataAdapter<StoryEntity, ListStoryAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 

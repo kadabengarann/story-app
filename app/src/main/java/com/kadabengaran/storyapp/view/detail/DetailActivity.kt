@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.ActivityDetailBinding
 import com.kadabengaran.storyapp.service.database.StoryEntity
-import com.kadabengaran.storyapp.service.model.StoryItem
 import com.kadabengaran.storyapp.utils.loadImage
 import com.kadabengaran.storyapp.utils.withDateFormat
 
@@ -40,7 +39,7 @@ class DetailActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    companion object{
+    companion object {
         const val EXTRA_STORY = "extra_object"
     }
 }

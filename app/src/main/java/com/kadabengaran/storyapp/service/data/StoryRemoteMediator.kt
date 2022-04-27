@@ -15,7 +15,7 @@ import com.kadabengaran.storyapp.service.remote.ApiService
 class StoryRemoteMediator(
     private val database: StoryDatabase,
     private val apiService: ApiService
-): RemoteMediator<Int, StoryEntity>() {
+) : RemoteMediator<Int, StoryEntity>() {
 
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
@@ -30,7 +30,7 @@ class StoryRemoteMediator(
         state: PagingState<Int, StoryEntity>
     ): MediatorResult {
         val page = when (loadType) {
-            LoadType.REFRESH ->{
+            LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 remoteKeys?.nextKey?.minus(1) ?: INITIAL_PAGE_INDEX
             }
@@ -64,7 +64,15 @@ class StoryRemoteMediator(
                     RemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
                 val storiesData = responseData.map {
-                    StoryEntity(id = it.id,it.name,it.description,it.photoUrl,it.createdAt,it.lat,it.lon)
+                    StoryEntity(
+                        id = it.id,
+                        it.name,
+                        it.description,
+                        it.photoUrl,
+                        it.createdAt,
+                        it.lat,
+                        it.lon
+                    )
                 }
                 database.remoteKeysDao().insertAll(keys)
                 database.storyDao().insertStories(storiesData)

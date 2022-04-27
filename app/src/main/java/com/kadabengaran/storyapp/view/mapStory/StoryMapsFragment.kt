@@ -52,7 +52,7 @@ class StoryMapsFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
                 getMyLocation()
-            }else{
+            } else {
                 showError(getString(R.string.permission_failed))
             }
         }
@@ -91,16 +91,23 @@ class StoryMapsFragment : Fragment() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
 
     }
+
     private fun checkPermission(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
             permission
         ) == PackageManager.PERMISSION_GRANTED
     }
+
     private fun setMapStyle() {
         try {
             val success =
-                storyMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(requireContext(), R.raw.map_style))
+                storyMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                        requireContext(),
+                        R.raw.map_style
+                    )
+                )
             if (!success) {
                 Log.e(TAG, "Style parsing failed.")
             }
@@ -110,17 +117,19 @@ class StoryMapsFragment : Fragment() {
     }
 
     private fun getMyLocation() {
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) ) {
+        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
             storyMap.isMyLocationEnabled = true
         } else {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
+
     private fun observeData() {
         storyMapViewModel.getStories().observe(viewLifecycleOwner) {
             processData(it)
         }
     }
+
     private fun processData(result: Result<List<StoryItem>>) {
         if (result != null) {
             when (result) {
@@ -156,7 +165,8 @@ class StoryMapsFragment : Fragment() {
             R.string.dateFormat,
             user.createdAt.withDateFormat()
         )
-        userDateUpload = userDateUpload.replaceFirstChar{userDateUpload.substring(0, 1).lowercase()}
+        userDateUpload =
+            userDateUpload.replaceFirstChar { userDateUpload.substring(0, 1).lowercase() }
         storyMap.addMarker(
             MarkerOptions()
                 .position(userLocation)

@@ -1,6 +1,8 @@
 package com.kadabengaran.storyapp.view.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.kadabengaran.storyapp.service.data.StoryRepository
@@ -9,7 +11,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
-    fun getStories(): LiveData<PagingData<StoryEntity>> = storyRepository.getStories().cachedIn(viewModelScope)
+    fun getStories(): LiveData<PagingData<StoryEntity>> =
+        storyRepository.getStories().cachedIn(viewModelScope)
 
     fun refresh() {
         viewModelScope.launch {

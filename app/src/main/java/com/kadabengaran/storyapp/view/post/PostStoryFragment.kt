@@ -2,6 +2,7 @@ package com.kadabengaran.storyapp.view.post
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
@@ -15,6 +16,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +33,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.android.gms.location.*
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialFadeThrough
@@ -203,14 +207,14 @@ class PostStoryFragment : Fragment() {
         ) {
             val locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
             val gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-            if (!gpsEnabled){
+            if (!gpsEnabled) {
                 gpsDisabledDialog(requireContext())
                 cbLocation.isChecked = false
-            }
-            else {
+            } else {
                 fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? -> //if lastKnown not Null
                     if (location != null) {
                         storyLocation = location
+                        Log.d(TAG, "getMyLastLocation: " + storyLocation.latitude + ", " + storyLocation.longitude)
                         Toast.makeText(
                             requireContext(),
                             getString(R.string.location_success),
@@ -218,7 +222,7 @@ class PostStoryFragment : Fragment() {
                         ).show()
                         if (!cbLocation.isChecked)
                             cbLocation.isChecked = true
-                    }else getMyCurrentLocation() // if null get currentLocation
+                    } else getMyCurrentLocation() // if null get currentLocation
                 }
             }
         } else {
@@ -243,6 +247,7 @@ class PostStoryFragment : Fragment() {
             showLoading(false)
             if (location != null) {
                 storyLocation = location
+                Log.d(TAG, "getMyCurrentLocation: " + storyLocation.latitude + ", " + storyLocation.longitude)
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.location_success),
@@ -327,8 +332,10 @@ class PostStoryFragment : Fragment() {
             )
 
             if (cbLocation.isChecked) {
-                val lat = storyLocation.latitude.toString().toRequestBody("text/plain".toMediaType())
-                val lon = storyLocation.longitude.toString().toRequestBody("text/plain".toMediaType())
+                val lat =
+                    storyLocation.latitude.toString().toRequestBody("text/plain".toMediaType())
+                val lon =
+                    storyLocation.longitude.toString().toRequestBody("text/plain".toMediaType())
 
                 postStoryViewModel.postStory(imageMultipart, description, lat, lon)
             } else {

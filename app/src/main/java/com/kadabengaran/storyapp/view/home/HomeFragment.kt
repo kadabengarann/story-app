@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = storyAdapter.withLoadStateFooter(
-                footer = LoadingStateAdapter{
+                footer = LoadingStateAdapter {
                     storyAdapter.retry()
                 }
             )
@@ -82,14 +82,14 @@ class HomeFragment : Fragment() {
 
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
-        if (reFetch){
+        if (reFetch) {
             homeViewModel.refresh()
             reFetch = false
         }
-            homeViewModel.getStories().observe(viewLifecycleOwner){
-                storyAdapter.submitData(lifecycle, it)
-                binding.rvStories.visibility = View.VISIBLE
-            }
+        homeViewModel.getStories().observe(viewLifecycleOwner) {
+            storyAdapter.submitData(lifecycle, it)
+            binding.rvStories.visibility = View.VISIBLE
+        }
 
         binding.rvStories.scrollToPosition(0)
         showLoading(true)
@@ -123,6 +123,7 @@ class HomeFragment : Fragment() {
             storyAdapter.retry()
         }
     }
+
     private fun showLoading(b: Boolean) {
         binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE
     }

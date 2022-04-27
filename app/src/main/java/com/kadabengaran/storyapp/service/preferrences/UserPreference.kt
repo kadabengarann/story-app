@@ -32,6 +32,7 @@ class UserPreference(private val context: Context) {
 
         }
     }
+
     suspend fun logout() {
         context.dataStore.edit { preferences ->
             preferences[NAME_KEY] = ""
@@ -40,6 +41,7 @@ class UserPreference(private val context: Context) {
 
         }
     }
+
     suspend fun getSessionToken(): String? {
         val preferences = context.dataStore.data.first()
         return preferences[SESSION_KEY]

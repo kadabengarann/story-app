@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.flowOn
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class StoryRepository (
+class StoryRepository(
     private val storyDatabase: StoryDatabase,
     private val apiService: ApiService,
 ) {
@@ -33,11 +33,12 @@ class StoryRepository (
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun refresh(){
+    suspend fun refresh() {
         storyDatabase.storyDao().deleteAll()
         storyDatabase.remoteKeysDao().deleteRemoteKeys()
 
     }
+
     fun login(login: LoginBody): Flow<Result<LoginResult>?> {
         return flow {
             emit(Result.Loading)
@@ -63,11 +64,12 @@ class StoryRepository (
             }
         ).liveData
     }
+
     fun fetchStoryLocation(): LiveData<Result<List<StoryItem>>> =
         liveData {
             emit(Result.Loading)
             try {
-                val result = apiService.getStories(1,30,1).listStory
+                val result = apiService.getStories(1, 30, 1).listStory
                 emit(Result.Success(result))
             } catch (e: Exception) {
                 Log.d("StoryRepository", "fetchStoryList: ${e.message.toString()} ")

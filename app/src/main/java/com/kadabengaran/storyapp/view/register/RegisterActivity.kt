@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.kadabengaran.storyapp.R
@@ -50,6 +49,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
     }
+
     private fun observe() {
         registerViewModel.registerResult.observe(this) { result ->
             if (result != null) when (result) {
@@ -100,6 +100,7 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun setupAction() {
         val name = binding.nameInput
         name.isEmailMode = false

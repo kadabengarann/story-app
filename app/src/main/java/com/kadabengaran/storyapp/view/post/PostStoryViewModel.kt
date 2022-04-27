@@ -1,6 +1,5 @@
 package com.kadabengaran.storyapp.view.post
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,11 +17,16 @@ class PostStoryViewModel(private val storyRepository: StoryRepository) : ViewMod
     val uploadResult: MutableLiveData<Result<FileUploadResponse>?> = _uploadResult
 
 
-    fun postStory(file: MultipartBody.Part, description: RequestBody, lat: RequestBody? =null, lon: RequestBody? =null) {
+    fun postStory(
+        file: MultipartBody.Part,
+        description: RequestBody,
+        lat: RequestBody? = null,
+        lon: RequestBody? = null
+    ) {
         viewModelScope.launch {
-                storyRepository.postStory(file, description, lat, lon).collect {
-                    _uploadResult.postValue(it)
-                }
+            storyRepository.postStory(file, description, lat, lon).collect {
+                _uploadResult.postValue(it)
+            }
         }
     }
 

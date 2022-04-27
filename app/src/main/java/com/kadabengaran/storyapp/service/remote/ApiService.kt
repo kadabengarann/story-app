@@ -35,5 +35,5 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int,
         @Query("location") location: Int = 0,
-        ): ResponseStory
+    ): ResponseStory
 }
