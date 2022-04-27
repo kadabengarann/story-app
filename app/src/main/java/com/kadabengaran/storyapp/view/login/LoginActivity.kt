@@ -39,8 +39,38 @@ class LoginActivity : AppCompatActivity() {
 
         setupView()
         setupViewModel()
+        observe()
         setupAction()
         playAnimation()
+    }
+
+    private fun observe() {
+        loginViewModel.loginResult.observe(this) { result ->
+            if (result != null) {
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        saveSession(
+                            User(
+                                result.data.name,
+                                result.data.token,
+                                true,
+                            )
+                        )
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    }
+                    is Result.Error -> {
+                        showLoading(false)
+                        showError(result.error)
+
+                    }
+                }
+            }
+        }
     }
 
     private fun setupView() {
@@ -74,32 +104,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(login: LoginBody) {
-        loginViewModel.login(login).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        showLoading(false)
-                        saveSession(
-                            User(
-                                result.data.name,
-                                result.data.token,
-                                true,
-                            )
-                        )
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        showError(result.error)
-
-                    }
-                }
-            }
-        }
+        loginViewModel.login(login)
     }
 
     private fun saveSession(user: User) {

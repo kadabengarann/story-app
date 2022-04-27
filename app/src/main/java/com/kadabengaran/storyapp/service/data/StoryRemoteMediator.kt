@@ -13,7 +13,6 @@ import com.kadabengaran.storyapp.service.remote.ApiService
 
 @OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
-    private val token: String,
     private val database: StoryDatabase,
     private val apiService: ApiService
 ): RemoteMediator<Int, StoryEntity>() {
@@ -50,7 +49,7 @@ class StoryRemoteMediator(
         }
 
         try {
-            val responseData = apiService.getStories(token,page, state.config.pageSize).listStory
+            val responseData = apiService.getStories(page, state.config.pageSize).listStory
 
             val endOfPaginationReached = responseData.isEmpty()
 

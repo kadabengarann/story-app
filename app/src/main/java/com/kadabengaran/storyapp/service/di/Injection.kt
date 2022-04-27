@@ -8,7 +8,7 @@ import com.kadabengaran.storyapp.service.remote.ApiConfig
 
 object Injection {
     fun provideRepository(context: Context): StoryRepository {
-        val apiService = ApiConfig.getApiService()
+        val apiService = ApiConfig.getApiService(context)
         val storyDatabase = StoryDatabase.getDatabase(context)
         return StoryRepository.getInstance(storyDatabase,apiService)
     }

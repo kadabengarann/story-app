@@ -27,7 +27,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -42,7 +41,6 @@ import com.kadabengaran.storyapp.service.model.StoryLocation
 import com.kadabengaran.storyapp.utils.createTempFile
 import com.kadabengaran.storyapp.utils.reduceFileImage
 import com.kadabengaran.storyapp.utils.uriToFile
-import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.ViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -55,9 +53,11 @@ class PostStoryFragment : Fragment() {
 
     private var _binding: FragmentPostStoryBinding? = null
     private val binding get() = _binding!!
-    private lateinit var preferenceViewModel: PreferenceViewModel
 
-    private lateinit var storyLocation: StoryLocation
+    private var storyLocation = StoryLocation(
+        null,
+        null
+    )
 
     private val factory by lazy {
         ViewModelFactory.getInstance(requireContext())
@@ -124,7 +124,7 @@ class PostStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewModel()
+
         setupView()
         setupAction()
         observeView()
@@ -145,15 +145,6 @@ class PostStoryFragment : Fragment() {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun setupViewModel() {
-        preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
-        if (postStoryViewModel.getToken().value == null) {
-            preferenceViewModel.getUser().observe(viewLifecycleOwner) {
-                postStoryViewModel.postToken(it.token)
-            }
-        }
     }
 
     private fun setupView() {
@@ -212,7 +203,7 @@ class PostStoryFragment : Fragment() {
                     is Result.Error -> {
                         showLoading(false)
                         showError(response.error)
-                        postStoryViewModel.resetProgress()
+//                        postStoryViewModel.resetProgress()
                     }
                 }
             }

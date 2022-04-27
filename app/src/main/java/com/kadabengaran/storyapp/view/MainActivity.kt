@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
         setupViewModel()
 
         navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.navigation_postStory -> showBottomNav(false)

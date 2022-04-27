@@ -17,36 +17,13 @@ class PostStoryViewModel(private val storyRepository: StoryRepository) : ViewMod
     private val _uploadResult = MutableLiveData<Result<FileUploadResponse>?>()
     val uploadResult: MutableLiveData<Result<FileUploadResponse>?> = _uploadResult
 
-    private val _tokenSession = MutableLiveData<String>()
 
-    fun getToken(): LiveData<String> {
-        return _tokenSession
-    }
-
-    fun postToken(s: String) {
-        return _tokenSession.postValue(s)
-    }
-
-    fun postStory(file: MultipartBody.Part, description: RequestBody, lat: RequestBody?, lon: RequestBody?) {
+    fun postStory(file: MultipartBody.Part, description: RequestBody, lat: RequestBody? =null, lon: RequestBody? =null) {
         viewModelScope.launch {
-            getToken().value?.let { token ->
-                storyRepository.postStory(token, file, description, lat, lon).collect {
+                storyRepository.postStory(file, description, lat, lon).collect {
                     _uploadResult.postValue(it)
                 }
-            }
-        }
-    }
-    fun postStory(file: MultipartBody.Part, description: RequestBody) {
-        viewModelScope.launch {
-            getToken().value?.let { token ->
-                storyRepository.postStory(token, file, description, null, null).collect {
-                    _uploadResult.postValue(it)
-                }
-            }
         }
     }
 
-    fun resetProgress() {
-        _uploadResult.value = null
-    }
 }

@@ -2,6 +2,7 @@ package com.kadabengaran.storyapp.service.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import androidx.paging.*
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.database.StoryDatabase
@@ -15,11 +16,11 @@ import kotlinx.coroutines.flow.flowOn
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class StoryRepository private constructor(
+class StoryRepository (
     private val storyDatabase: StoryDatabase,
     private val apiService: ApiService,
 ) {
-    fun register(register: RegisterBody): Flow<Result<String>?> {
+    suspend fun register(register: RegisterBody): Flow<Result<String>?> {
         return flow {
             emit(Result.Loading)
             try {
@@ -50,32 +51,31 @@ class StoryRepository private constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    fun getStories(token: String): LiveData<PagingData<StoryEntity>> {
+    fun getStories(): LiveData<PagingData<StoryEntity>> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            remoteMediator = StoryRemoteMediator(token,storyDatabase, apiService),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
                 storyDatabase.storyDao().getAllStories()
             }
         ).liveData
     }
-    suspend fun fetchStoryLocation(token: String): Flow<Result<List<StoryItem>>> {
-        return flow {
+    fun fetchStoryLocation(): LiveData<Result<List<StoryItem>>> =
+        liveData {
             emit(Result.Loading)
             try {
-                val result = apiService.getStories("Bearer $token",1,30,1).listStory
+                val result = apiService.getStories(1,30,1).listStory
                 emit(Result.Success(result))
             } catch (e: Exception) {
                 Log.d("StoryRepository", "fetchStoryList: ${e.message.toString()} ")
                 emit(Result.Error(e.message.toString()))
             }
-        }.flowOn(Dispatchers.IO)
-    }
+        }
+
     suspend fun postStory(
-        token: String,
         file: MultipartBody.Part,
         description: RequestBody,
         lat: RequestBody?,
@@ -84,7 +84,7 @@ class StoryRepository private constructor(
         return flow {
             emit(Result.Loading)
             try {
-                val result = apiService.uploadImage("Bearer $token", file, description, lat, lon)
+                val result = apiService.uploadImage(file, description, lat, lon)
                 emit(Result.Success(result))
             } catch (e: Exception) {
                 Log.d("StoryRepository", "UploadStory: ${e.message.toString()} ")

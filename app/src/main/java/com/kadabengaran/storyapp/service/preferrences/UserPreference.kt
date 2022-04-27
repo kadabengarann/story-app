@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.kadabengaran.storyapp.service.model.User
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 class UserPreference(private val context: Context) {
@@ -38,6 +39,10 @@ class UserPreference(private val context: Context) {
             preferences[STATE_KEY] = false
 
         }
+    }
+    suspend fun getSessionToken(): String? {
+        val preferences = context.dataStore.data.first()
+        return preferences[SESSION_KEY]
     }
 
     fun getThemeSetting(): Flow<Boolean> {

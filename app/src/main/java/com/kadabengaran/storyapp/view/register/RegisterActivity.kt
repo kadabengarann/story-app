@@ -5,15 +5,16 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.ActivityRegisterBinding
 import com.kadabengaran.storyapp.service.Result
-import com.kadabengaran.storyapp.service.model.LoginBody
 import com.kadabengaran.storyapp.service.model.RegisterBody
 import com.kadabengaran.storyapp.service.model.User
 import com.kadabengaran.storyapp.view.MainActivity
@@ -41,6 +42,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         setRegisterEnable()
         setupViewModel()
+        observe()
         setupAction()
         playAnimation()
     }
@@ -48,7 +50,56 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
     }
+    private fun observe() {
+        registerViewModel.registerResult.observe(this) { result ->
+            if (result != null) when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                }
+                is Result.Success -> {
+                    showLoading(false)
+                    Toast.makeText(
+                        this,
+                        getString(R.string.login_process),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    showError(result.error)
+                }
+            }
+        }
+        registerViewModel.loginResult.observe(this) { result ->
+            if (result != null) when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                }
+                is Result.Success -> {
+                    showLoading(false)
+                    saveSession(
+                        User(
+                            result.data.name,
+                            result.data.token,
+                            true,
+                        )
+                    )
+                    Toast.makeText(
+                        this,
+                        getString(R.string.login_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    showError(result.error)
 
+                }
+            }
+        }
+    }
     private fun setupAction() {
         val name = binding.nameInput
         name.isEmailMode = false
@@ -81,52 +132,8 @@ class RegisterActivity : AppCompatActivity() {
             (binding.passwordInput.check() && binding.emailInput.check() && !binding.nameInput.text.isNullOrEmpty())
     }
 
-    private fun login(loginBody: LoginBody) {
-        registerViewModel.login(loginBody).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        showLoading(false)
-                        saveSession(
-                            User(
-                                result.data.name,
-                                result.data.token,
-                                true,
-                            )
-                        )
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        showError(result.error)
-                    }
-                }
-            }
-        }
-    }
-
     private fun register(register: RegisterBody) {
-        registerViewModel.register(register).observe(this) { result ->
-            if (result != null) {
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                    }
-                    is Result.Success -> {
-                        showLoading(false)
-                        login(LoginBody(register.email, register.password))
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        showError(result.error)
-                    }
-                }
-            }
-        }
+        registerViewModel.register(register)
     }
 
     private fun saveSession(user: User) {
