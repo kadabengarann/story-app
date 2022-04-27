@@ -50,7 +50,12 @@
     <string name="location_success">Successfully get location</string>
     <string name="share_current_location">Share current location?</string>
     <string name="explore">Explore</string>
-    <string name="login_process">Login process...</string>
+    <string name="login_process">Login process…</string>
     <string name="login_success">login successful</string>
+    <string name="getting_current_location">Getting current location…</string>
+    <string name="get_location_failed">Failed to get location</string>
+    <string name="gps_disabled">GPS is not enabled</string>
+    <string name="please_enable_gps">Please enable GPS!</string>
+    <string name="choose_picture">Choose a Picture</string>
 
 </resources>

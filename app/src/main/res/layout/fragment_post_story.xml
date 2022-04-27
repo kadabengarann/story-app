@@ -3,164 +3,164 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="?attr/colorPrimaryVariant2"
+    android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorPrimaryVariant2"
-    tools:context=".view.post.PostStoryFragment">
 
-    <CheckBox
-        android:id="@+id/cb_location"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/share_current_location"
-        android:textColor="?attr/textColorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/inp_description"
-        app:layout_constraintStart_toStartOf="@+id/inp_description"
-        app:layout_constraintTop_toBottomOf="@+id/inp_description" />
+        android:background="?attr/colorPrimaryVariant2"
+        tools:context=".view.post.PostStoryFragment">
 
-    <EditText
-        android:id="@+id/inp_description"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:gravity="top|start"
-        android:hint="@string/write_a_caption"
-        android:inputType="textMultiLine"
-        android:maxLines="10"
-        app:layout_constraintEnd_toEndOf="@+id/previewImageView"
-        app:layout_constraintHeight_default="wrap"
-        app:layout_constraintHeight_max="300dp"
-        app:layout_constraintHeight_min="100dp"
-        app:layout_constraintStart_toStartOf="@+id/previewImageView"
-        app:layout_constraintTop_toBottomOf="@+id/previewImageView" />
+        <CheckBox
+            android:id="@+id/cb_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/share_current_location"
+            android:textColor="?attr/textColorPrimary"
+            app:layout_constraintEnd_toEndOf="@+id/inp_description"
+            app:layout_constraintStart_toStartOf="@+id/inp_description"
+            app:layout_constraintTop_toBottomOf="@+id/inp_description" />
 
-    <ImageView
-        android:id="@+id/previewImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
-        app:srcCompat="@drawable/ic_place_holder" />
+        <EditText
+            android:id="@+id/inp_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:autofillHints=""
+            android:ems="10"
+            android:gravity="top|start"
+            android:hint="@string/write_a_caption"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            app:layout_constraintEnd_toEndOf="@+id/previewImageView"
+            app:layout_constraintHeight_default="wrap"
+            app:layout_constraintHeight_max="300dp"
+            app:layout_constraintHeight_min="100dp"
+            app:layout_constraintStart_toStartOf="@+id/previewImageView"
+            app:layout_constraintTop_toBottomOf="@+id/previewImageView" />
 
-    <TextView
-        android:id="@+id/tv_separator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/upload_image_from"
-        app:layout_constraintEnd_toEndOf="@+id/inp_description"
-        app:layout_constraintStart_toStartOf="@+id/inp_description"
-        app:layout_constraintTop_toBottomOf="@+id/cb_location" />
+        <ImageView
+            android:id="@+id/previewImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal2"
+            app:srcCompat="@drawable/ic_place_holder" />
 
-    <TextView
-        android:id="@+id/tv_separator2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/or"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
-        app:layout_constraintTop_toTopOf="@+id/btn_camera" />
+        <TextView
+            android:id="@+id/tv_separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/upload_image_from"
+            app:layout_constraintEnd_toEndOf="@+id/inp_description"
+            app:layout_constraintStart_toStartOf="@+id/inp_description"
+            app:layout_constraintTop_toBottomOf="@+id/cb_location" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.35"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tv_separator2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintTop_toTopOf="@+id/btn_camera" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHorizontal2"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.02"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.35"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineVertical"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineHorizontal2"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.02"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_camera"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/bg_button_secondary"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:backgroundTint="@null"
-        app:backgroundTintMode="add"
-        app:icon="@drawable/ic_camera"
-        app:iconGravity="textTop"
-        app:iconPadding="0dp"
-        app:iconSize="35dp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_separator2"
-        app:layout_constraintStart_toStartOf="@+id/inp_description"
-        app:layout_constraintTop_toBottomOf="@+id/tv_separator"
-        tools:ignore="UnusedAttribute" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_gallery"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/bg_button_secondary"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        app:backgroundTint="@null"
-        app:backgroundTintMode="add"
-        app:icon="@drawable/ic_photo_library"
-        app:iconGravity="textTop"
-        app:iconPadding="0dp"
-        app:iconSize="35dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
-        app:layout_constraintEnd_toEndOf="@+id/inp_description"
-        app:layout_constraintStart_toEndOf="@+id/tv_separator2"
-        app:layout_constraintTop_toTopOf="@+id/btn_camera"
-        tools:ignore="UnusedAttribute" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_camera"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_button_secondary"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:backgroundTint="@null"
+            app:backgroundTintMode="add"
+            app:icon="@drawable/ic_camera"
+            app:iconGravity="textTop"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:layout_constraintEnd_toStartOf="@+id/tv_separator2"
+            app:layout_constraintStart_toStartOf="@+id/inp_description"
+            app:layout_constraintTop_toBottomOf="@+id/tv_separator"
+            tools:ignore="UnusedAttribute" />
 
-    <com.kadabengaran.storyapp.components.MyActionButton
-        android:id="@+id/btn_upload"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:text="@string/upload"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btn_gallery"
-        app:layout_constraintStart_toStartOf="@+id/btn_camera"
-        app:layout_constraintTop_toBottomOf="@+id/btn_camera"
-        tools:ignore="UnusedAttribute" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gallery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_button_secondary"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            app:backgroundTint="@null"
+            app:backgroundTintMode="add"
+            app:icon="@drawable/ic_photo_library"
+            app:iconGravity="textTop"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
+            app:layout_constraintEnd_toEndOf="@+id/inp_description"
+            app:layout_constraintStart_toEndOf="@+id/tv_separator2"
+            app:layout_constraintTop_toTopOf="@+id/btn_camera"
+            tools:ignore="UnusedAttribute" />
 
-    <include
-        android:id="@+id/inc_progress"
-        layout="@layout/progress_overlay"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <com.kadabengaran.storyapp.components.MyActionButton
+            android:id="@+id/btn_upload"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/upload"
+            app:layout_constraintEnd_toEndOf="@+id/btn_gallery"
+            app:layout_constraintStart_toStartOf="@+id/btn_camera"
+            app:layout_constraintTop_toBottomOf="@+id/btn_camera"
+            tools:ignore="UnusedAttribute" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/inc_progress"
+            layout="@layout/progress_overlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
