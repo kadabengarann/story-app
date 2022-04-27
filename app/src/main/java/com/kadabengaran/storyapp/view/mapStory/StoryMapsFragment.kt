@@ -28,6 +28,7 @@ import com.kadabengaran.storyapp.R
 import com.kadabengaran.storyapp.databinding.FragmentStoryMapsBinding
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.model.StoryItem
+import com.kadabengaran.storyapp.utils.withDateFormat
 import com.kadabengaran.storyapp.view.PreferenceViewModel
 import com.kadabengaran.storyapp.view.ViewModelFactory
 
@@ -151,10 +152,17 @@ class StoryMapsFragment : Fragment() {
 
     private fun showMarker(user: StoryItem) {
         val userLocation = LatLng(user.lat, user.lon)
+        var userDateUpload = getString(
+            R.string.dateFormat,
+            user.createdAt.withDateFormat()
+        )
+        userDateUpload = userDateUpload.replaceFirstChar{userDateUpload.substring(0, 1).lowercase()}
         storyMap.addMarker(
             MarkerOptions()
                 .position(userLocation)
                 .title(user.name)
+                .snippet("${getString(R.string.story)} $userDateUpload")
+
         )
         boundsBuilder.include(userLocation)
         val bounds: LatLngBounds = boundsBuilder.build()
