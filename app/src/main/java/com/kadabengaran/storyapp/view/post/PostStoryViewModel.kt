@@ -1,5 +1,6 @@
 package com.kadabengaran.storyapp.view.post
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +15,7 @@ import okhttp3.RequestBody
 class PostStoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
 
     private val _uploadResult = MutableLiveData<Result<FileUploadResponse>?>()
-    val uploadResult: MutableLiveData<Result<FileUploadResponse>?> = _uploadResult
+    val uploadResult: LiveData<Result<FileUploadResponse>?> = _uploadResult
 
 
     fun postStory(

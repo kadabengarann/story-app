@@ -26,7 +26,8 @@ object ApiConfig {
 
             runBlocking {
                 pref.getSessionToken().let {
-                    request.addHeader("Authorization", "Bearer $it")
+                    if (!it.isNullOrEmpty())
+                        request.addHeader("Authorization", "Bearer $it")
                 }
             }
             chain.proceed(request.build())

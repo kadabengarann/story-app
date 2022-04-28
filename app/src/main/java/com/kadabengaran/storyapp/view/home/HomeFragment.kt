@@ -59,6 +59,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showLoading(true)
         reFetch = HomeFragmentArgs.fromBundle(arguments as Bundle).reFetch
         setupViewModel()
         binding.rvStories.apply {
@@ -71,7 +72,6 @@ class HomeFragment : Fragment() {
             )
         }
         observeData()
-
     }
 
     override fun onDestroyView() {
@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
     private fun observeData() {
         storyAdapter.addLoadStateListener { loadState ->
             showLoading(loadState.source.refresh is LoadState.Loading)
-            binding.grError.isVisible = loadState.source.refresh is LoadState.Error
+            binding?.grError.isVisible = loadState.source.refresh is LoadState.Error
 
             showError()
         }
@@ -125,6 +125,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun showLoading(b: Boolean) {
-        binding.progressBar.visibility = if (b) View.VISIBLE else View.GONE
+        binding?.progressBar.visibility = if (b) View.VISIBLE else View.GONE
     }
 }

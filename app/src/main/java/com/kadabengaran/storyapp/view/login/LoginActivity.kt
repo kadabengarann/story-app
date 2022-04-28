@@ -80,6 +80,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         preferenceViewModel = ViewModelProvider(this)[PreferenceViewModel::class.java]
+        preferenceViewModel.getUser().observe(this) { user ->
+            if (user.isLogin) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
     }
 
     private fun setupAction() {

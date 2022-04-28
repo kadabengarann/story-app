@@ -2,7 +2,6 @@ package com.kadabengaran.storyapp.service.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import androidx.paging.*
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.database.StoryDatabase
@@ -65,8 +64,8 @@ class StoryRepository(
         ).liveData
     }
 
-    fun fetchStoryLocation(): LiveData<Result<List<StoryItem>>> =
-        liveData {
+    fun fetchStoryLocation(): Flow<Result<List<StoryItem>>> =
+        flow {
             emit(Result.Loading)
             try {
                 val result = apiService.getStories(1, 30, 1).listStory
@@ -75,7 +74,7 @@ class StoryRepository(
                 Log.d("StoryRepository", "fetchStoryList: ${e.message.toString()} ")
                 emit(Result.Error(e.message.toString()))
             }
-        }
+        }.flowOn(Dispatchers.IO)
 
     suspend fun postStory(
         file: MultipartBody.Part,

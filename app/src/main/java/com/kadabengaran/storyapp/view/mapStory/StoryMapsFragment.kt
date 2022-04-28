@@ -51,9 +51,14 @@ class StoryMapsFragment : Fragment() {
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) {
+                storyMapViewModel.getStories()
                 getMyLocation()
             } else {
-                showError(getString(R.string.permission_failed))
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.permission_failed),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -125,7 +130,8 @@ class StoryMapsFragment : Fragment() {
     }
 
     private fun observeData() {
-        storyMapViewModel.getStories().observe(viewLifecycleOwner) {
+        storyMapViewModel.getStories()
+        storyMapViewModel.listStory.observe(viewLifecycleOwner) {
             processData(it)
         }
     }
@@ -186,9 +192,9 @@ class StoryMapsFragment : Fragment() {
         error.let {
             binding.incError.tvError.text = it
         }
-        binding.incError.grError.visibility = View.VISIBLE
+        binding.incError.errorOverlay.visibility = View.VISIBLE
         binding.incError.btnError.setOnClickListener {
-            binding.incError.grError.visibility = View.GONE
+            binding.incError.errorOverlay.visibility = View.GONE
             storyMapViewModel.getStories()
         }
         Toast.makeText(

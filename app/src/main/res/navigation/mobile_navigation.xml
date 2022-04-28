@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/navigation_storyMap"
         android:name="com.kadabengaran.storyapp.view.mapStory.StoryMapsFragment"
-        android:label="Explore"
+        android:label="@string/explore"
         tools:layout="@layout/fragment_story_maps" />
 
 </navigation>
