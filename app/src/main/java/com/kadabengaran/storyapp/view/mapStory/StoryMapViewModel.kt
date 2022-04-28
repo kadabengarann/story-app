@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.kadabengaran.storyapp.service.Result
 import com.kadabengaran.storyapp.service.data.StoryRepository
 import com.kadabengaran.storyapp.service.model.StoryItem
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 class StoryMapViewModel(private val storyRepository: StoryRepository) : ViewModel() {

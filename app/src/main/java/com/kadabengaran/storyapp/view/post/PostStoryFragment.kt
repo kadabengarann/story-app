@@ -214,7 +214,10 @@ class PostStoryFragment : Fragment() {
                 fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? -> //if lastKnown not Null
                     if (location != null) {
                         storyLocation = location
-                        Log.d(TAG, "getMyLastLocation: " + storyLocation.latitude + ", " + storyLocation.longitude)
+                        Log.d(
+                            TAG,
+                            "getMyLastLocation: " + storyLocation.latitude + ", " + storyLocation.longitude
+                        )
                         Toast.makeText(
                             requireContext(),
                             getString(R.string.location_success),
@@ -247,7 +250,10 @@ class PostStoryFragment : Fragment() {
             showLoading(false)
             if (location != null) {
                 storyLocation = location
-                Log.d(TAG, "getMyCurrentLocation: " + storyLocation.latitude + ", " + storyLocation.longitude)
+                Log.d(
+                    TAG,
+                    "getMyCurrentLocation: " + storyLocation.latitude + ", " + storyLocation.longitude
+                )
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.location_success),
