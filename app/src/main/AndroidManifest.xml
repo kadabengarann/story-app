@@ -31,8 +31,7 @@
         </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCwCTXq-1tgdfDeW1Zv3dfUYMXI8lQDSK8" />
-
+            android:value="API" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.kadabengaran.storyapp"
